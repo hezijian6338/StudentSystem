@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.Mrs.Wang.project.dao.LearningguidStudentslistMapper">
+  <resultMap id="BaseResultMap" type="com.Mrs.Wang.project.model.LearningguidStudentslist">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="STU_ID" jdbcType="VARCHAR" property="stuId" />
+    <result column="STUDENTNO" jdbcType="VARCHAR" property="studentno" />
+    <result column="STUNAME" jdbcType="VARCHAR" property="stuname" />
+    <result column="ACADEMICYEAR" jdbcType="VARCHAR" property="academicyear" />
+    <result column="TERM" jdbcType="VARCHAR" property="term" />
+    <result column="CLASSNAME" jdbcType="VARCHAR" property="classname" />
+    <result column="TEACHERNO" jdbcType="VARCHAR" property="teacherno" />
+    <result column="TEACHERNAME" jdbcType="VARCHAR" property="teachername" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="CREATOR" jdbcType="VARCHAR" property="creator" />
+  </resultMap>
+</mapper>

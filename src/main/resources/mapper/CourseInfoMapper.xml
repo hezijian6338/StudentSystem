@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.Mrs.Wang.project.dao.CourseInfoMapper">
+  <resultMap id="BaseResultMap" type="com.Mrs.Wang.project.model.CourseInfo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="COURSECODE" jdbcType="VARCHAR" property="coursecode" />
+    <result column="COURSENAME" jdbcType="VARCHAR" property="coursename" />
+    <result column="ACADEMICYEAR" jdbcType="VARCHAR" property="academicyear" />
+    <result column="TERM" jdbcType="VARCHAR" property="term" />
+    <result column="EMPLOY_NO" jdbcType="VARCHAR" property="employNo" />
+    <result column="EMPLOY_NAME" jdbcType="VARCHAR" property="employName" />
+    <result column="SELECTEDCOURSENO" jdbcType="VARCHAR" property="selectedcourseno" />
+    <result column="COURSETYPE" jdbcType="VARCHAR" property="coursetype" />
+    <result column="TOTALHOURS" jdbcType="DECIMAL" property="totalhours" />
+    <result column="STUDENTNUM" jdbcType="DECIMAL" property="studentnum" />
+    <result column="CREDIT" jdbcType="DECIMAL" property="credit" />
+    <result column="BELONGTO" jdbcType="VARCHAR" property="belongto" />
+    <result column="MEMO" jdbcType="VARCHAR" property="memo" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="CREATOR" jdbcType="VARCHAR" property="creator" />
+    <result column="LIMITSTUDENTNUM" jdbcType="DECIMAL" property="limitstudentnum" />
+    <result column="CLASSINFO" jdbcType="LONGVARCHAR" property="classinfo" />
+  </resultMap>
+</mapper>
