@@ -17,6 +17,6 @@ import javax.annotation.Resource;
 @Transactional
 public class UserServiceImpl extends AbstractService<User> implements UserService {
     @Resource
-    private UserMapper sysUserMapper;
+    private UserMapper userMapper;
 
 }

@@ -1,6 +1,7 @@
 package com.Mrs.Wang.project.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Table(name = "Sys_role_user")
 public class UserRole {
@@ -13,6 +14,7 @@ public class UserRole {
 
     @Column(name = "sys_role_id")
     private Long sysRoleId;
+
 
     /**
      * @return id
@@ -55,4 +57,6 @@ public class UserRole {
     public void setSysRoleId(Long sysRoleId) {
         this.sysRoleId = sysRoleId;
     }
+
+
 }

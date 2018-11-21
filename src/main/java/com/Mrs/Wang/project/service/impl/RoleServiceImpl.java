@@ -17,6 +17,5 @@ import javax.annotation.Resource;
 @Transactional
 public class RoleServiceImpl extends AbstractService<Role> implements RoleService {
     @Resource
-    private RoleMapper sysRoleMapper;
-
+    private RoleMapper roleMapper;
 }

@@ -14,9 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by yangyibo on 17/1/18.
- */
+
 @Service
 public class CustomUserService implements UserDetailsService { //自定义UserDetailsService 接口
 

@@ -1,6 +1,7 @@
 package com.Mrs.Wang.project.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Table(name = "Sys_Role")
 public class Role {
@@ -8,7 +9,10 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name")
     private String name;
+
+
 
     /**
      * @return id
@@ -37,4 +41,6 @@ public class Role {
     public void setName(String name) {
         this.name = name;
     }
+
+
 }

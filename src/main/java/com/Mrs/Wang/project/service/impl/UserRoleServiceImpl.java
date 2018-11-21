@@ -6,7 +6,6 @@ import com.Mrs.Wang.project.service.UserRoleService;
 import com.Mrs.Wang.project.core.AbstractService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.annotation.Resource;
 
 
@@ -17,6 +16,6 @@ import javax.annotation.Resource;
 @Transactional
 public class UserRoleServiceImpl extends AbstractService<UserRole> implements UserRoleService {
     @Resource
-    private UserRoleMapper sysRoleUserMapper;
+    private UserRoleMapper userRoleMapper;
 
 }

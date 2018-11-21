@@ -21,16 +21,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private MyFilterSecurityInterceptor myFilterSecurityInterceptor;
+    @Autowired
+    UserDetailsService CustomUserService;
 
-
-    @Bean
-    UserDetailsService customUserService() { //注册UserDetailsService 的bean
-        return new CustomUserService();
-    }
+//    @Bean
+//    UserDetailsService customUserService() { //注册UserDetailsService 的bean
+//        return new CustomUserService();
+//    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customUserService()); //user Details Service验证
+        auth.userDetailsService(CustomUserService); //user Details Service验证
 
     }
 
@@ -40,7 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated() //任何请求,登录后可以访问
                 .and()
                 .formLogin()
-                .loginPage("/course/info")
+                .loginPage("/login")
                 .failureUrl("/login?error")
                 .permitAll() //登录页面用户任意访问
                 .and()
