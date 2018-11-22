@@ -8,6 +8,8 @@ import com.Mrs.Wang.project.model.Students;
 import com.Mrs.Wang.project.model.TeacherInfo;
 import com.Mrs.Wang.project.service.LearningguidStudentslistService;
 import com.Mrs.Wang.project.core.AbstractService;
+import com.Mrs.Wang.project.service.StudentsService;
+import com.Mrs.Wang.project.service.TeacherInfoService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,13 +26,20 @@ public class LearningguidStudentslistServiceImpl extends AbstractService<Learnin
     private LearningguidStudentslistMapper tLearningguidStudentslistMapper;
 
     @Resource
-    private StudentsMapper studentsMapper;
+    private StudentsService studentsService;
 
-    @Resource
-    private TeacherInfoMapper teacherInfoMapper;
-
-    public void studentToEmployno(Students studentno, TeacherInfo employno){
-
+    public void studentToEmployno(Students student, TeacherInfo teacherInfo){
+        LearningguidStudentslist lgsl = new LearningguidStudentslist();
+        //创建者和创建时间还有学期等字段还有疑问
+        lgsl.setStudentno(student.getStudentno());
+        lgsl.setClassname(student.getClassname());
+        lgsl.setStuId(student.getStuId());
+        lgsl.setStuname(student.getStuname());
+        lgsl.setAcademicyear(teacherInfo.getAcdemictitle());
+        lgsl.setTeachername(teacherInfo.getEmployName());
+        lgsl.setTeacherno(teacherInfo.getEmployNo());
+        lgsl.setCreator(student.getStudentno());
+        this.save(lgsl);
     }
 
 }
