@@ -44,6 +44,12 @@ public class TeacherInfoController {
         return ResultGenerator.genSuccessResult(teacherInfo);
     }
 
+    @GetMapping("/{fieldfieldName}/{value}")
+    public Result searchBy(@PathVariable String fieldfieldName, @PathVariable String value){
+        TeacherInfo teacherInfo = teacherInfoService.findBy(fieldfieldName, value);
+        return ResultGenerator.genSuccessResult(teacherInfo);
+    }
+
     @GetMapping
     public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);

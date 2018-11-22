@@ -44,6 +44,12 @@ public class StudentsController {
         return ResultGenerator.genSuccessResult(students);
     }
 
+    @GetMapping("/{fieldfieldName}/{value}")
+    public Result searchBy(@PathVariable String fieldfieldName, @PathVariable String value){
+        Students students = studentsService.findBy(fieldfieldName, value);
+        return ResultGenerator.genSuccessResult(students);
+    }
+
     @GetMapping
     public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);

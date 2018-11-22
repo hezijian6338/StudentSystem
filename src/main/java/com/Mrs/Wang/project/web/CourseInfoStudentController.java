@@ -2,6 +2,7 @@ package com.Mrs.Wang.project.web;
 
 import com.Mrs.Wang.project.core.Result;
 import com.Mrs.Wang.project.core.ResultGenerator;
+import com.Mrs.Wang.project.model.CourseInfo;
 import com.Mrs.Wang.project.model.CourseInfoStudent;
 import com.Mrs.Wang.project.service.CourseInfoStudentService;
 import com.github.pagehelper.PageHelper;
@@ -41,6 +42,12 @@ public class CourseInfoStudentController {
     @GetMapping("/{id}")
     public Result detail(@PathVariable Integer id) {
         CourseInfoStudent courseInfoStudent = courseInfoStudentService.findById(id);
+        return ResultGenerator.genSuccessResult(courseInfoStudent);
+    }
+
+    @GetMapping("/{fieldfieldName}/{value}")
+    public Result searchBy(@PathVariable String fieldfieldName, @PathVariable String value){
+        CourseInfoStudent courseInfoStudent = courseInfoStudentService.findBy(fieldfieldName, value);
         return ResultGenerator.genSuccessResult(courseInfoStudent);
     }
 

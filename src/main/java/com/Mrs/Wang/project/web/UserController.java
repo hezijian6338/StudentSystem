@@ -1,7 +1,9 @@
 package com.Mrs.Wang.project.web;
 
+import com.Mrs.Wang.project.DTO.UserDTO;
 import com.Mrs.Wang.project.core.Result;
 import com.Mrs.Wang.project.core.ResultGenerator;
+import com.Mrs.Wang.project.dao.UserMapper;
 import com.Mrs.Wang.project.model.User;
 import com.Mrs.Wang.project.service.UserService;
 import com.github.pagehelper.PageHelper;
@@ -20,6 +22,9 @@ public class UserController {
     @Resource
     private UserService userService;
 
+    @Resource
+    private UserMapper userMapper;
+
 
     @GetMapping("/login")
     public String login(){
@@ -32,7 +37,7 @@ public class UserController {
         return ResultGenerator.genSuccessResult();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/user/{id}")
     public Result delete(@PathVariable Integer id) {
         userService.deleteById(id);
         return ResultGenerator.genSuccessResult();
@@ -48,6 +53,14 @@ public class UserController {
     public Result detail(@PathVariable Integer id) {
         User user = userService.findById(id);
         return ResultGenerator.genSuccessResult(user);
+    }
+
+    @GetMapping("user/rolename/{value}")
+    public Result searchByRole(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size, @PathVariable String value){
+        PageHelper.startPage(page, size);
+        List<UserDTO> list = userMapper.findByRoleName(value);
+        PageInfo pageInfo = new PageInfo(list);
+        return ResultGenerator.genSuccessResult(pageInfo);
     }
 
     @GetMapping("/user")
