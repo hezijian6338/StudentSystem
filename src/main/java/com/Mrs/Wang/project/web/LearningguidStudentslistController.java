@@ -3,7 +3,11 @@ package com.Mrs.Wang.project.web;
 import com.Mrs.Wang.project.core.Result;
 import com.Mrs.Wang.project.core.ResultGenerator;
 import com.Mrs.Wang.project.model.LearningguidStudentslist;
+import com.Mrs.Wang.project.model.Students;
+import com.Mrs.Wang.project.model.TeacherInfo;
 import com.Mrs.Wang.project.service.LearningguidStudentslistService;
+import com.Mrs.Wang.project.service.StudentsService;
+import com.Mrs.Wang.project.service.TeacherInfoService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +24,23 @@ public class LearningguidStudentslistController {
     @Resource
     private LearningguidStudentslistService learningguidStudentslistService;
 
+    @Resource
+    private StudentsService studentsService;
+
+    @Resource
+    private TeacherInfoService teacherInfoService;
+
     @PostMapping
     public Result add(@RequestBody LearningguidStudentslist learningguidStudentslist) {
         learningguidStudentslistService.save(learningguidStudentslist);
+        return ResultGenerator.genSuccessResult();
+    }
+
+    @PostMapping("/{studentno}/to/{employno}")
+    public Result _add(@PathVariable String studentno, @PathVariable String employno) {
+        Students students = studentsService.findBy("studentno", studentno);
+        TeacherInfo teacherInfo = teacherInfoService.findBy("employno", employno);
+        learningguidStudentslistService.studentToEmployno(students, teacherInfo);
         return ResultGenerator.genSuccessResult();
     }
 
