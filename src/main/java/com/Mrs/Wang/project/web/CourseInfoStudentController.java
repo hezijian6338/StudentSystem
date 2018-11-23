@@ -4,7 +4,10 @@ import com.Mrs.Wang.project.core.Result;
 import com.Mrs.Wang.project.core.ResultGenerator;
 import com.Mrs.Wang.project.model.CourseInfo;
 import com.Mrs.Wang.project.model.CourseInfoStudent;
+import com.Mrs.Wang.project.model.Students;
+import com.Mrs.Wang.project.service.CourseInfoService;
 import com.Mrs.Wang.project.service.CourseInfoStudentService;
+import com.Mrs.Wang.project.service.StudentsService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.*;
@@ -21,11 +24,26 @@ public class CourseInfoStudentController {
     @Resource
     private CourseInfoStudentService courseInfoStudentService;
 
+    @Resource
+    private StudentsService studentsService;
+
+    @Resource
+    private CourseInfoService courseInfoService;
+
     @PostMapping
     public Result add(@RequestBody CourseInfoStudent courseInfoStudent) {
         courseInfoStudentService.save(courseInfoStudent);
         return ResultGenerator.genSuccessResult();
     }
+
+    @PostMapping("/{studentno}/to/{coursecode}")
+    public Result _add(@PathVariable String studentno, @PathVariable String coursecode) {
+        Students students = studentsService.findBy("studentno", studentno);
+        CourseInfo courseInfo = courseInfoService.findBy("coursecode", coursecode);
+
+        return ResultGenerator.genSuccessResult();
+    }
+
 
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id) {

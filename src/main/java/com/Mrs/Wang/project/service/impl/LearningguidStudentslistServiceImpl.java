@@ -26,10 +26,11 @@ public class LearningguidStudentslistServiceImpl extends AbstractService<Learnin
     private LearningguidStudentslistMapper tLearningguidStudentslistMapper;
 
     @Resource
-    private StudentsService studentsService;
+    private LearningguidStudentslistService learningguidStudentslistService;
 
     public void studentToEmployno(Students student, TeacherInfo teacherInfo){
         LearningguidStudentslist lgsl = new LearningguidStudentslist();
+        lgsl.setId("164dfas65fas fasfsw 516");
         //创建者和创建时间还有学期等字段还有疑问
         lgsl.setStudentno(student.getStudentno());
         lgsl.setClassname(student.getClassname());
@@ -39,7 +40,7 @@ public class LearningguidStudentslistServiceImpl extends AbstractService<Learnin
         lgsl.setTeachername(teacherInfo.getEmployName());
         lgsl.setTeacherno(teacherInfo.getEmployNo());
         lgsl.setCreator(student.getStudentno());
-        this.save(lgsl);
+        learningguidStudentslistService.save(lgsl);
     }
 
 }

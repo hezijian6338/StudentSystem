@@ -39,7 +39,7 @@ public class LearningguidStudentslistController {
     @PostMapping("/{studentno}/to/{employno}")
     public Result _add(@PathVariable String studentno, @PathVariable String employno) {
         Students students = studentsService.findBy("studentno", studentno);
-        TeacherInfo teacherInfo = teacherInfoService.findBy("employno", employno);
+        TeacherInfo teacherInfo = teacherInfoService.findBy("employNo", employno);
         learningguidStudentslistService.studentToEmployno(students, teacherInfo);
         return ResultGenerator.genSuccessResult();
     }
