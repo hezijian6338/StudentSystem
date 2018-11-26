@@ -14,8 +14,8 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
-* Created by Dragonsking309 on 2018/11/19.
-*/
+ * Created by Dragonsking309 on 2018/11/19.
+ */
 @RestController
 @RequestMapping("/")
 public class UserController {
@@ -27,8 +27,8 @@ public class UserController {
 
 
     @GetMapping("/login")
-    public String login(){
-        return "login";
+    public Result login() {
+        return ResultGenerator.genSuccessResult();
     }
 
     @PostMapping("/user")
@@ -56,7 +56,7 @@ public class UserController {
     }
 
     @GetMapping("user/rolename/{value}")
-    public Result searchByRole(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size, @PathVariable String value){
+    public Result searchByRole(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size, @PathVariable String value) {
         PageHelper.startPage(page, size);
         List<UserDTO> list = userMapper.findByRoleName(value);
         PageInfo pageInfo = new PageInfo(list);
