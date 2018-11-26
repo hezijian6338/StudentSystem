@@ -26,8 +26,8 @@ public class UserController {
     private UserMapper userMapper;
 
 
-    @GetMapping("/login")
-    public Result login() {
+    @PostMapping("/login")
+    public Result login(@RequestHeader String token) {
         return ResultGenerator.genSuccessResult();
     }
 

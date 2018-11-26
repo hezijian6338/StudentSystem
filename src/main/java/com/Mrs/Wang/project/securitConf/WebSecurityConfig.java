@@ -50,6 +50,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().permitAll(); //注销行为任意访问
         http.addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class)
                 .csrf().disable();
+        http.addFilter(new JWTLoginFilter(authenticationManager()))
+                .addFilter(new JWTAuthenticationFilter(authenticationManager()));
 
 
     }
