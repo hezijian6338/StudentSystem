@@ -1,6 +1,7 @@
 package com.Mrs.Wang.project.securitConf;
 
 
+import com.Mrs.Wang.project.core.ResultCode;
 import com.Mrs.Wang.project.dao.PermissionMapper;
 import com.Mrs.Wang.project.dao.UserMapper;
 import com.Mrs.Wang.project.model.Permission;
@@ -10,9 +11,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import javax.annotation.Resource;
@@ -34,10 +38,6 @@ import java.util.List;
  */
 public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
 
-    @Resource
-    UserMapper userMapper;
-    @Resource
-    PermissionMapper permissionMapper;
 
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
@@ -48,25 +48,28 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
         String header = request.getHeader("X-Token");
 
         if (header == null || !header.startsWith("Dragonsking ")) {
+            response.setHeader("X-Token", String.valueOf(ResultCode.UNAUTHORIZED));
+            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken("abel", null, new ArrayList<>()));
             chain.doFilter(request, response);
             return;
         }
 
-        //UsernamePasswordAuthenticationToken authentication = getAuthentication(request);
+        boolean authentication = getAuthentication(request);
+
+        if(!authentication){
+            response.setHeader("X-Token", String.valueOf(ResultCode.UNAUTHORIZED));
+        }
 
         //SecurityContextHolder.getContext().setAuthentication(authentication);
 
-
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
-
-        System.out.println(userDetails.getUsername());
-
+        System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
         chain.doFilter(request, response);
 
     }
 
-    private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
+    private boolean getAuthentication(HttpServletRequest request) {
+
         String token = request.getHeader("X-Token");
         if (token != null) {
             // parse the token.
@@ -77,26 +80,16 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
                     .getSubject();
 
             if (username != null) {
-                CustomUserService customUserService = new CustomUserService();
-                return (UsernamePasswordAuthenticationToken) customUserService.loadUserByUsername(username);
-//                com.Mrs.Wang.project.model.User user = userMapper.findByUserName(username);
-//                if (user != null) {
-//                    List<Permission> permissions = permissionMapper.findByAdminUserId(user.getId());
-//                    List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-//                    for (Permission permission : permissions) {
-//                        if (permission != null && permission.getName() != null) {
-//
-//                            GrantedAuthority grantedAuthority = new MyGrantedAuthority(permission.getUrl(), permission.getMethod());
-//                            grantedAuthorities.add(grantedAuthority);
-//                        }
-//                    }
-//                    return new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), grantedAuthorities);
-//                }
-//                return new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
+                //return new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
+                String userDetails =  (String) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
+                if(userDetails.equals(username)){
+                    return true;
+                }
+                return false;
             }
-            return null;
+            return false;
         }
-        return null;
+        return false;
     }
 
 }

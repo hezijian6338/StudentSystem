@@ -4,7 +4,10 @@ import com.Mrs.Wang.project.dao.PermissionMapper;
 import com.Mrs.Wang.project.dao.UserMapper;
 import com.Mrs.Wang.project.model.Permission;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -35,6 +38,8 @@ public class CustomUserService implements UserDetailsService { //自定义UserDe
                     grantedAuthorities.add(grantedAuthority);
                 }
             }
+            UsernamePasswordAuthenticationToken user1 = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), grantedAuthorities);
+            SecurityContextHolder.getContext().setAuthentication(user1);
             return new User(user.getUsername(), user.getPassword(), grantedAuthorities);
         } else {
             throw new UsernameNotFoundException("admin: " + username + " do not exist!");
