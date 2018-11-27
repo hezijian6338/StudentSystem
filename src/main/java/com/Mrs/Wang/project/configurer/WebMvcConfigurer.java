@@ -2,11 +2,9 @@ package com.Mrs.Wang.project.configurer;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
+import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +17,8 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -27,6 +27,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
@@ -113,18 +114,14 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //接口签名认证拦截器，该签名认证比较简单，实际项目中可以使用Json Web Token或其他更好的方式替代。
-        if ("dev".equals(env)) { //开发环境忽略签名认证
+        if (!"dev".equals(env)) { //开发环境忽略签名认证
             registry.addInterceptor(new HandlerInterceptorAdapter() {
                 @Override
                 public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
                     //验证签名
                     boolean pass = validateSign(request);
-                    System.out.print(request.getHeader("X-Token"));
+                    System.out.println(request.getRequestURL());
                     if (pass) {
-                        Result result = new Result();
-                        result.setCode(ResultCode.SUCCESS).setMessage("X-Token成功~");
-                        response.setHeader("X-Token", request.getRequestedSessionId());
-                        responseResult(response, result);
                         return true;
                     } else {
                         logger.warn("签名认证失败，请求接口：{}，请求IP：{}，请求参数：{}",
@@ -132,7 +129,7 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
 
                         Result result = new Result();
                         result.setCode(ResultCode.UNAUTHORIZED).setMessage("签名认证失败");
-                        response.setHeader("X-Token", request.getRequestedSessionId());
+
                         responseResult(response, result);
                         return false;
                     }
@@ -141,7 +138,19 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
         }
     }
 
+//    private void JWTAuthentication(HttpServletRequest req,
+//                                            HttpServletResponse res) throws IOException, ServletException {
+//
+//        String token = Jwts.builder()
+//                .setSubject(req.getParameter())
+//                .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 24 * 1000))
+//                .signWith(SignatureAlgorithm.HS512, "MyJwtSecret")
+//                .compact();
+//        res.addHeader("X-Token", "Dragonsking " + token);
+//    }
+
     private void responseResult(HttpServletResponse response, Result result) {
+        response.reset();
         response.setCharacterEncoding("UTF-8");
         response.setHeader("Content-type", "application/json;charset=UTF-8");
         response.setStatus(200);

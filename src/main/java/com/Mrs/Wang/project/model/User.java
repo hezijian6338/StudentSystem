@@ -3,6 +3,7 @@ package com.Mrs.Wang.project.model;
 import javax.persistence.*;
 import java.util.List;
 
+@Entity
 @Table(name = "Sys_User")
 public class User {
     @Id
