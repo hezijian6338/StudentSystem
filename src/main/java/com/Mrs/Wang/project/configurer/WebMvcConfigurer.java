@@ -121,8 +121,8 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
                 public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
                     //验证签名
                     //boolean pass = validateSign(request);
-                    String token = request.getHeader("X-Token");
-                    boolean pass = token.equals(ResultCode.UNAUTHORIZED);
+                    String token = response.getHeader("X-Token");
+                    boolean pass = token.equals(String.valueOf(ResultCode.UNAUTHORIZED));
                     System.out.println(request.getRequestURL());
                     if (!pass) {
                         return true;
