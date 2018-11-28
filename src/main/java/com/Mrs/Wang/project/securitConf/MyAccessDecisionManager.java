@@ -1,5 +1,6 @@
 package com.Mrs.Wang.project.securitConf;
 
+import com.Mrs.Wang.project.core.ResultCode;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
@@ -11,6 +12,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Collection;
 
 /**
@@ -24,6 +26,7 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
     public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes) throws AccessDeniedException, InsufficientAuthenticationException {
 
         HttpServletRequest request = ((FilterInvocation) object).getHttpRequest();
+        HttpServletResponse response = ((FilterInvocation) object).getResponse();
         String url, method;
         AntPathRequestMatcher matcher;
         for (GrantedAuthority ga : authentication.getAuthorities()) {
@@ -45,7 +48,12 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
                 }
             }
         }
-        throw new AccessDeniedException("no right");
+        String token = response.getHeader("X-Token");
+        boolean pass = token.equals(ResultCode.SUCCESS);
+        if (pass)
+            throw new AccessDeniedException("no right");
+        else
+            return;
     }
 
 

@@ -58,6 +58,8 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
 
         if(!authentication){
             response.setHeader("X-Token", String.valueOf(ResultCode.UNAUTHORIZED));
+        }else {
+            response.setHeader("X-Token", String.valueOf(ResultCode.SUCCESS));
         }
 
         //SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -72,21 +74,26 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
 
         String token = request.getHeader("X-Token");
         if (token != null) {
-            // parse the token.
-            String username = Jwts.parser()
-                    .setSigningKey("MyJwtSecret")
-                    .parseClaimsJws(token.replace("Dragonsking ", ""))
-                    .getBody()
-                    .getSubject();
-
-            if (username != null) {
-                //return new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
-                String userDetails =  (String) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
-                if(userDetails.equals(username)){
-                    return true;
+            try {
+                String username = Jwts.parser()
+                        .setSigningKey("MyJwtSecret")
+                        .parseClaimsJws(token.replace("Dragonsking ", ""))
+                        .getBody()
+                        .getSubject();
+                if (username != null) {
+                    //return new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
+                    String userDetails =  (String) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
+                    if(userDetails.equals(username)){
+                        return true;
+                    }
+                    // parse the token.
+                    return false;
                 }
+            }catch (Exception e){
+                System.out.println(e);
                 return false;
             }
+
             return false;
         }
         return false;
