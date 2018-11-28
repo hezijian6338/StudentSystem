@@ -1,5 +1,7 @@
 package com.Mrs.Wang.project.securitConf;
 
+import com.Mrs.Wang.project.core.Result;
+import com.Mrs.Wang.project.core.ResultCode;
 import com.Mrs.Wang.project.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
@@ -73,5 +75,8 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
                 .signWith(SignatureAlgorithm.HS512, "MyJwtSecret")
                 .compact();
         res.addHeader("X-Token", "Dragonsking " + token);
+        res.setStatus(200);
+        Result result = new Result();
+        result.setCode(ResultCode.SUCCESS).setMessage("登陆成功");
     }
 }
