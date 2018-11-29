@@ -1,8 +1,10 @@
 package com.Mrs.Wang.project.securitConf;
 
+import com.Mrs.Wang.project.DTO.TokenDTO;
 import com.Mrs.Wang.project.core.Result;
 import com.Mrs.Wang.project.core.ResultCode;
 import com.Mrs.Wang.project.model.User;
+import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -75,8 +77,14 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
                 .signWith(SignatureAlgorithm.HS512, "MyJwtSecret")
                 .compact();
         res.addHeader("X-Token", "Dragonsking " + token);
+        TokenDTO tokenDTO = new TokenDTO();
+        tokenDTO.setToken("Dragonsking" + token);
         res.setStatus(200);
         Result result = new Result();
+        result.setData(tokenDTO);
         result.setCode(ResultCode.SUCCESS).setMessage("登陆成功");
+        res.setCharacterEncoding("UTF-8");
+        res.setHeader("Content-type", "application/json;charset=UTF-8");
+        res.getWriter().write(JSON.toJSONString(result));
     }
 }
