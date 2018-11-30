@@ -129,7 +129,12 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
                     } else {
                         logger.warn("签名认证失败，请求接口：{}，请求IP：{}，请求参数：{}",
                                 request.getRequestURI(), getIpAddress(request), JSON.toJSONString(request.getParameterMap()));
-
+                        try {
+                            logger.warn("该请求的Headers：{}", request.getHeader("X-Token"));
+                        }catch (Exception e){
+                            System.out.println(e);
+                            logger.warn("该请求不存在验证表头!");
+                        }
                         Result result = new Result();
                         result.setCode(ResultCode.UNAUTHORIZED).setMessage("签名认证失败");
 
