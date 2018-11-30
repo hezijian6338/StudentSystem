@@ -7,6 +7,7 @@ import com.Mrs.Wang.project.core.ResultGenerator;
 import com.Mrs.Wang.project.dao.UserMapper;
 import com.Mrs.Wang.project.model.User;
 import com.Mrs.Wang.project.service.UserService;
+import com.Mrs.Wang.project.utils.JWTUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.*;
@@ -64,11 +65,13 @@ public class UserController {
         return ResultGenerator.genSuccessResult(pageInfo);
     }
 
-    @GetMapping("/user/name/{username}")
-    public Result searchRoleByuser(@PathVariable String username) {
+    @GetMapping("/user/name")
+    public Result searchRoleByuser(@RequestParam String token) {
+        String username = JWTUtils.getAuthentication(token);
         List<String> list = userService.searchRoleByuser(username);
         RolesDTO roles = new RolesDTO();
         roles.setRoles(list);
+        roles.setName(username);
         return ResultGenerator.genSuccessResult(roles);
     }
 
