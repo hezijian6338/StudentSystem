@@ -64,7 +64,7 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
 
         //SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        //System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
         chain.doFilter(request, response);
 
