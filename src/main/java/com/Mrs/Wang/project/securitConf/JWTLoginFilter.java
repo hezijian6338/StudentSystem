@@ -78,7 +78,7 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
                 .compact();
         res.addHeader("X-Token", "Dragonsking " + token);
         TokenDTO tokenDTO = new TokenDTO();
-        tokenDTO.setToken("Dragonsking" + token);
+        tokenDTO.setToken("Dragonsking " + token);
         res.setStatus(200);
         Result result = new Result();
         result.setData(tokenDTO);
