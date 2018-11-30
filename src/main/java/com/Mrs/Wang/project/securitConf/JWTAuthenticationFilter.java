@@ -49,7 +49,7 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
 
         if (header == null || !header.startsWith("Dragonsking ")) {
             response.setHeader("X-Token", String.valueOf(ResultCode.UNAUTHORIZED));
-            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken("abel", null, new ArrayList<>()));
+            //SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken("abel", null, new ArrayList<>()));
             chain.doFilter(request, response);
             return;
         }
