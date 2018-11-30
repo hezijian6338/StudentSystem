@@ -1,5 +1,6 @@
 package com.Mrs.Wang.project.web;
 
+import com.Mrs.Wang.project.DTO.RolesDTO;
 import com.Mrs.Wang.project.DTO.UserDTO;
 import com.Mrs.Wang.project.core.Result;
 import com.Mrs.Wang.project.core.ResultGenerator;
@@ -66,7 +67,9 @@ public class UserController {
     @GetMapping("/user/name/{username}")
     public Result searchRoleByuser(@PathVariable String username) {
         List<String> list = userService.searchRoleByuser(username);
-        return ResultGenerator.genSuccessResult(list);
+        RolesDTO roles = new RolesDTO();
+        roles.setRoles(list);
+        return ResultGenerator.genSuccessResult(roles);
     }
 
     @GetMapping("/user")
