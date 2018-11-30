@@ -56,14 +56,15 @@ public class UserController {
     }
 
     @GetMapping("user/rolename/{rolename}")
-    public Result searchByRole(@PathVariable String rolename) {
+    public Result searchByRole(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size, @PathVariable String rolename) {
+        PageHelper.startPage(page, size);
         List<UserDTO> list = userMapper.findByRoleName(rolename);
-        return ResultGenerator.genSuccessResult(list);
+        PageInfo pageInfo = new PageInfo(list);
+        return ResultGenerator.genSuccessResult(pageInfo);
     }
 
     @GetMapping("user/role/{username}")
-    public Result searchRoleByuser(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size, @PathVariable String username) {
-        PageHelper.startPage(page, size);
+    public Result searchRoleByuser(@PathVariable String username) {
         List<String> list = userService.searchRoleByuser(username);
         return ResultGenerator.genSuccessResult(list);
     }
