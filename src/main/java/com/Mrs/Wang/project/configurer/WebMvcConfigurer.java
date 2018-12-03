@@ -109,6 +109,12 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
 //                .allowedMethods("POST", "GET", "PUT", "OPTIONS", "DELETE")
 //                .maxAge(36000)
 //                .allowCredentials(true);
+        registry.addMapping("/**")
+                .allowedOrigins("*")
+                .allowedMethods("*")
+                .allowedHeaders("*")
+                .allowCredentials(true)
+                .maxAge(3600);
     }
 
     //添加拦截器
@@ -145,17 +151,6 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
             });
         }
     }
-
-//    private void JWTAuthentication(HttpServletRequest req,
-//                                            HttpServletResponse res) throws IOException, ServletException {
-//
-//        String token = Jwts.builder()
-//                .setSubject(req.getParameter())
-//                .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 24 * 1000))
-//                .signWith(SignatureAlgorithm.HS512, "MyJwtSecret")
-//                .compact();
-//        res.addHeader("X-Token", "Dragonsking " + token);
-//    }
 
     private void responseResult(HttpServletResponse response, Result result) {
         response.reset();

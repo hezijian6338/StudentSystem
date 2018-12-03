@@ -47,6 +47,7 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         String header = request.getHeader("X-Token");
 
+
         if (header == null || !header.startsWith("Dragonsking ")) {
             response.setHeader("X-Token", String.valueOf(ResultCode.UNAUTHORIZED));
             //SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken("abel", null, new ArrayList<>()));
