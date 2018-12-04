@@ -86,5 +86,7 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
         res.setCharacterEncoding("UTF-8");
         res.setHeader("Content-type", "application/json;charset=UTF-8");
         res.getWriter().write(JSON.toJSONString(result));
+        System.out.println("用户：" + ((org.springframework.security.core.userdetails.User) auth.getPrincipal()).getUsername()
+                + "登陆成功,Token：" + token);
     }
 }
