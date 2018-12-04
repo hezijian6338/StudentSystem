@@ -40,13 +40,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 //.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .anyRequest().authenticated() //任何请求,登录后可以访问
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .failureUrl("/login?error")
-                .permitAll() //登录页面用户任意访问
-                .and()
-                .logout().permitAll(); //注销行为任意访问
+//                .and()
+//                .formLogin()
+//                .loginPage("/login")
+//                .failureUrl("/login?error")
+//                .permitAll() //登录页面用户任意访问
+//                .and()
+//                .logout().permitAll()
+                    ; //注销行为任意访问
         http
                 .addFilter(new JWTLoginFilter(authenticationManager()))
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
