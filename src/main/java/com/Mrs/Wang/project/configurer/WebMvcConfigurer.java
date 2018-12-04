@@ -109,12 +109,12 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
 //                .allowedMethods("POST", "GET", "PUT", "OPTIONS", "DELETE")
 //                .maxAge(36000)
 //                .allowCredentials(true);
-        registry.addMapping("/**")
-                .allowedOrigins("*")
-                .allowedMethods("*")
-                .allowedHeaders("*")
-                .allowCredentials(true)
-                .maxAge(3600);
+//        registry.addMapping("/**")
+//                .allowedOrigins("*")
+//                .allowedMethods("*")
+//                .allowedHeaders("*")
+//                .allowCredentials(true)
+//                .maxAge(3600);
     }
 
     //添加拦截器
