@@ -129,7 +129,7 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
                     //boolean pass = validateSign(request);
                     String token = response.getHeader("X-Token");
                     boolean pass = token.equals(String.valueOf(ResultCode.UNAUTHORIZED));
-                    System.out.println(request.getRequestURL());
+                    System.out.println("用户请求地址：" + request.getRequestURL());
                     if (!pass) {
                         return true;
                     } else {

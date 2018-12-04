@@ -58,7 +58,10 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
         boolean authentication = getAuthentication(request);
 
         if(!authentication){
+
+            logger.warn("JWTAuthenticationFilter.authentication 发生错误,验证没通过!");
             response.setHeader("X-Token", String.valueOf(ResultCode.UNAUTHORIZED));
+
         }else {
             response.setHeader("X-Token", String.valueOf(ResultCode.SUCCESS));
         }
@@ -91,7 +94,7 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
                     return false;
                 }
             }catch (Exception e){
-                System.out.println(e);
+                System.out.println("JWTAuthenticationFilter.getAuthentication()方法验证身份错误，出现如下错误：" + e);
                 return false;
             }
 
