@@ -47,6 +47,11 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         String header = request.getHeader("X-Token");
         System.out.println("用户进入过滤器请求地址：" + request.getRequestURL() + ",请求方法：" + request.getMethod());
+        System.out.println("当前已登录用户：" + SecurityContextHolder.getContext().getAuthentication() .getPrincipal());
+
+        if(request.getMethod().equals("OPTIONS")){
+            return;
+        }
 
         if (header == null || !header.startsWith("Dragonsking ")) {
             response.setHeader("X-Token", String.valueOf(ResultCode.UNAUTHORIZED));
