@@ -1,31 +1,19 @@
 package com.Mrs.Wang.project.securitConf;
 
-
 import com.Mrs.Wang.project.core.ResultCode;
-import com.Mrs.Wang.project.dao.PermissionMapper;
-import com.Mrs.Wang.project.dao.UserMapper;
-import com.Mrs.Wang.project.model.Permission;
 import io.jsonwebtoken.Jwts;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextImpl;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
-import javax.annotation.Resource;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,7 +36,6 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
         String header = request.getHeader("X-Token");
         System.out.println("用户进入过滤器请求地址：" + request.getRequestURL() + ",请求方法：" + request.getMethod());
 
-
         if (header == null || !header.startsWith("Dragonsking ")) {
             response.setHeader("X-Token", String.valueOf(ResultCode.UNAUTHORIZED));
             //SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken("abel", null, new ArrayList<>()));
@@ -58,15 +45,15 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
 
         boolean authentication = getAuthentication(request);
 
-        if(!authentication){
+        if (!authentication) {
 
             logger.warn("JWTAuthenticationFilter.authentication 发生错误,验证没通过!");
             response.setHeader("X-Token", String.valueOf(ResultCode.UNAUTHORIZED));
 
-        }else {
+        } else {
             response.setHeader("X-Token", String.valueOf(ResultCode.SUCCESS));
         }
-
+        //response.setHeader("X-Token", String.valueOf(ResultCode.SUCCESS));
         //SecurityContextHolder.getContext().setAuthentication(authentication);
 
         //System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
@@ -76,12 +63,31 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
     }
 
     private boolean getAuthentication(HttpServletRequest request) {
-
-        System.out.println("当前已登录用户：" + SecurityContextHolder.getContext().getAuthentication() .getPrincipal());
-
         String token = request.getHeader("X-Token");
         if (token != null) {
             try {
+                SecurityContextImpl securityContextImpl = (SecurityContextImpl) request
+                        .getSession().getAttribute("SPRING_SECURITY_CONTEXT");
+                // 登录名
+                System.out.println("Username:"
+                        + securityContextImpl.getAuthentication().getName());
+                // 登录密码，未加密的
+                System.out.println("Credentials:"
+                        + securityContextImpl.getAuthentication().getCredentials());
+                WebAuthenticationDetails details = (WebAuthenticationDetails) securityContextImpl
+                        .getAuthentication().getDetails();
+                // 获得访问地址
+                // System.out.println("RemoteAddress" + details.getRemoteAddress());
+                // 获得sessionid
+                System.out.println("SessionId" + details.getSessionId());
+                // 获得当前用户所拥有的权限
+                List<GrantedAuthority> authorities = (List<GrantedAuthority>) securityContextImpl
+                        .getAuthentication().getAuthorities();
+                for (GrantedAuthority grantedAuthority : authorities) {
+                    System.out.println("Authority" + grantedAuthority.getAuthority());
+                }
+
+                System.out.println("当前已登录用户：" + SecurityContextHolder.getContext().getAuthentication().getPrincipal());
                 String username = Jwts.parser()
                         .setSigningKey("MyJwtSecret")
                         .parseClaimsJws(token.replace("Dragonsking ", ""))
@@ -89,14 +95,14 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
                         .getSubject();
                 if (username != null) {
                     //return new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
-                    String userDetails =  (String) SecurityContextHolder.getContext().getAuthentication() .getPrincipal();
-                    if(userDetails.equals(username)){
+                    String userDetails = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                    if (userDetails.equals(username)) {
                         return true;
                     }
                     // parse the token.
                     return false;
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("JWTAuthenticationFilter.getAuthentication()方法验证身份错误，出现如下错误：" + e);
                 return false;
             }

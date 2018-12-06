@@ -35,6 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(CustomUserService); //user Details Service验证
+        auth.eraseCredentials(false);
     }
 
     @Override
@@ -42,8 +43,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http   // 基于token，所以不需要session
                 //.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                // 所有 / 的所有请求 都放行
-                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll() //对preflight放行
+                //.antMatchers("/login").permitAll()
+                //.requestMatchers(CorsUtils::isPreFlightRequest).permitAll() //对preflight放行
                 //.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .anyRequest().authenticated() //任何请求,登录后可以访问
 //                .and()
@@ -53,12 +54,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .permitAll() //登录页面用户任意访问
 //                .and()
 //                .logout().permitAll()
-                    ; //注销行为任意访问
+                //注销行为任意访问
+                .and()
+                .csrf().disable()
+                ;
+
         http
                 .addFilter(new JWTLoginFilter(authenticationManager()))
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
-                .addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class)
-                .csrf().disable();
+                .addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class);
+
     }
 }
 

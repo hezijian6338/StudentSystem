@@ -1,9 +1,13 @@
 package com.Mrs.Wang.project.securitConf;
 
+import com.Mrs.Wang.project.DTO.RolesDTO;
 import com.Mrs.Wang.project.DTO.TokenDTO;
 import com.Mrs.Wang.project.core.Result;
 import com.Mrs.Wang.project.core.ResultCode;
 import com.Mrs.Wang.project.model.User;
+import com.Mrs.Wang.project.service.UserService;
+import com.Mrs.Wang.project.service.impl.UserServiceImpl;
+import com.Mrs.Wang.project.utils.JWTUtils;
 import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
@@ -13,8 +17,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -23,6 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 验证用户名密码正确后，生成一个token，并将token返回给客户端
@@ -35,8 +44,6 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
 
     private AuthenticationManager authenticationManager;
 
-//    @Autowired
-//    UserDetailsService CustomUserService;
 
     public JWTLoginFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
@@ -70,6 +77,7 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
                                             HttpServletResponse res,
                                             FilterChain chain,
                                             Authentication auth) throws IOException, ServletException {
+        UserService userService = new UserServiceImpl();
 
         String token = Jwts.builder()
                 .setSubject(((org.springframework.security.core.userdetails.User) auth.getPrincipal()).getUsername())
@@ -88,5 +96,7 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
         res.getWriter().write(JSON.toJSONString(result));
         System.out.println("用户：" + ((org.springframework.security.core.userdetails.User) auth.getPrincipal()).getUsername()
                 + "登陆成功,Token：" + token);
+
+        System.out.println("denglu：" + SecurityContextHolder.getContext().getAuthentication().getPrincipal());
     }
 }
