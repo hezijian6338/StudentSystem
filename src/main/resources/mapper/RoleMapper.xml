@@ -8,4 +8,19 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
   </resultMap>
+
+  <resultMap id="Role_User" type="java.util.HashMap">
+    <result property="rolename" column="rolename"/>
+    <collection property="users" ofType="com.Mrs.Wang.project.DTO.UserDTO">
+      <id column="userid" property="id"/>
+      <result column="username" property="username"/>
+    </collection>
+  </resultMap>
+
+  <select id="findRoleWithUser" resultMap="Role_User">
+    select r.name rolename, u.id userid,u.username
+    from Sys_Role r
+    left join Sys_role_user sru on sru.sys_role_id = r.id
+    left join Sys_User u on u.id = sru.sys_user_id
+    </select>
 </mapper>

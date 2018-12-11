@@ -101,7 +101,5 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
         res.getWriter().write(JSON.toJSONString(result));
         System.out.println("用户：" + ((org.springframework.security.core.userdetails.User) auth.getPrincipal()).getUsername()
                 + "登陆成功,Token：" + token);
-
-        System.out.println("denglu：" + SecurityContextHolder.getContext().getAuthentication().getPrincipal());
     }
 }

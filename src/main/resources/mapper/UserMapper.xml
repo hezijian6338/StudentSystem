@@ -9,10 +9,12 @@
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
   </resultMap>
+
   <resultMap id="onlyUserMap" type="com.Mrs.Wang.project.DTO.UserDTO">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="username" jdbcType="VARCHAR" property="username" />
   </resultMap>
+
   <resultMap id="userMap" type="com.Mrs.Wang.project.model.User">
     <id property="id" column="ID"/>
     <result property="username" column="username"/>
@@ -20,8 +22,8 @@
     <collection property="roles" ofType="com.Mrs.Wang.project.model.Role">
       <result column="name" property="name"/>
     </collection>
-
   </resultMap>
+
   <select id="findByUserName" parameterType="String" resultMap="userMap">
 		select u.*
 		,r.name
@@ -30,6 +32,7 @@
         LEFT JOIN Sys_Role r on sru.Sys_Role_id=r.id
         where username= #{username}
 	</select>
+
   <select id="findByRoleName" parameterType="String" resultMap="onlyUserMap">
 		select u.id, u.username
 		from Sys_User u
@@ -37,4 +40,5 @@
         LEFT JOIN Sys_Role r on sru.Sys_Role_id=r.id
         where r.name= #{rolename}
 	</select>
+
 </mapper>
