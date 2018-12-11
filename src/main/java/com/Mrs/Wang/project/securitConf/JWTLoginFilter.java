@@ -33,6 +33,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static org.springframework.security.core.context.SecurityContextHolder.MODE_INHERITABLETHREADLOCAL;
+
 /**
  * 验证用户名密码正确后，生成一个token，并将token返回给客户端
  * 该类继承自UsernamePasswordAuthenticationFilter，重写了其中的2个方法
@@ -59,6 +61,9 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
             user.setPassword(req.getParameter("password"));
 //            User user = new ObjectMapper()
 //                    .readValue(req.getInputStream(), User.class);
+
+            SecurityContextHolder.setStrategyName(MODE_INHERITABLETHREADLOCAL);
+            System.out.println("Check Strategy: " + SecurityContextHolder.getContextHolderStrategy().toString());
 
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(

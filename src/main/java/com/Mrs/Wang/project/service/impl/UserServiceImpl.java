@@ -1,5 +1,6 @@
 package com.Mrs.Wang.project.service.impl;
 
+import com.Mrs.Wang.project.DTO.UserDTO;
 import com.Mrs.Wang.project.dao.PermissionMapper;
 import com.Mrs.Wang.project.dao.UserMapper;
 import com.Mrs.Wang.project.model.Permission;
@@ -33,6 +34,13 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
             list.add(p.getName());
         }
         return list;
+    }
+
+    public User findByUserName(String username){
+        return userMapper.findByUserName(username);
+    }
+    public List<UserDTO> findByRoleName(String rolename){
+        return userMapper.findByRoleName(rolename);
     }
 
 }

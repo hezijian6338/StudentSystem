@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 /**
@@ -18,5 +19,9 @@ import javax.annotation.Resource;
 public class PermissionServiceImpl extends AbstractService<Permission> implements PermissionService {
     @Resource
     private PermissionMapper sysPermissionMapper;
+
+    public List<Permission> findByAdminUserId(Long userId){
+        return sysPermissionMapper.findByAdminUserId(userId);
+    }
 
 }

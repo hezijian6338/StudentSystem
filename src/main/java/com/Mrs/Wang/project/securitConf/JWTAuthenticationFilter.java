@@ -1,19 +1,31 @@
 package com.Mrs.Wang.project.securitConf;
 
 import com.Mrs.Wang.project.core.ResultCode;
+import com.Mrs.Wang.project.model.Permission;
+import com.Mrs.Wang.project.service.PermissionService;
+import com.Mrs.Wang.project.service.UserService;
+import com.Mrs.Wang.project.service.impl.PermissionServiceImpl;
+import com.Mrs.Wang.project.service.impl.UserServiceImpl;
+import com.Mrs.Wang.project.utils.JWTUtils;
 import io.jsonwebtoken.Jwts;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextImpl;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
+import javax.annotation.Resource;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,8 +45,9 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+
         String header = request.getHeader("X-Token");
-        System.out.println("用户进入过滤器请求地址：" + request.getRequestURL() + ",请求方法：" + request.getMethod());
+        System.out.println("--------------------------: 用户进入过滤器请求地址：" + request.getRequestURL() + ",请求方法：" + request.getMethod());
 
         if (header == null || !header.startsWith("Dragonsking ")) {
             response.setHeader("X-Token", String.valueOf(ResultCode.UNAUTHORIZED));
@@ -43,16 +56,16 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
             return;
         }
 
-        boolean authentication = getAuthentication(request);
-
-        if (!authentication) {
-
-            logger.warn("JWTAuthenticationFilter.authentication 发生错误,验证没通过!");
-            response.setHeader("X-Token", String.valueOf(ResultCode.UNAUTHORIZED));
-
-        } else {
-            response.setHeader("X-Token", String.valueOf(ResultCode.SUCCESS));
-        }
+//        boolean authentication = getAuthentication(request);
+//
+//        if (!authentication) {
+//
+//            logger.warn("JWTAuthenticationFilter.authentication 发生错误,验证没通过!");
+//            response.setHeader("X-Token", String.valueOf(ResultCode.UNAUTHORIZED));
+//
+//        } else {
+//            response.setHeader("X-Token", String.valueOf(ResultCode.SUCCESS));
+//        }
         //response.setHeader("X-Token", String.valueOf(ResultCode.SUCCESS));
         //SecurityContextHolder.getContext().setAuthentication(authentication);
 
@@ -79,7 +92,7 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
                 // 获得访问地址
                 // System.out.println("RemoteAddress" + details.getRemoteAddress());
                 // 获得sessionid
-                System.out.println("SessionId" + details.getSessionId());
+                // System.out.println("SessionId" + details.getSessionId());
                 // 获得当前用户所拥有的权限
                 List<GrantedAuthority> authorities = (List<GrantedAuthority>) securityContextImpl
                         .getAuthentication().getAuthorities();
@@ -111,6 +124,5 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
         }
         return false;
     }
-
 }
 

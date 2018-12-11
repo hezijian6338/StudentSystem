@@ -40,12 +40,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http   // 基于token，所以不需要session
+        http
                 //.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+//                .headers()
+//                .frameOptions()
+//                .sameOrigin()
+//                .and()
                 .authorizeRequests()
-                //.antMatchers("/login").permitAll()
-                //.requestMatchers(CorsUtils::isPreFlightRequest).permitAll() //对preflight放行
-                //.antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .anyRequest().authenticated() //任何请求,登录后可以访问
 //                .and()
 //                .formLogin()
@@ -57,6 +59,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //注销行为任意访问
                 .and()
                 .csrf().disable()
+                .cors()
+                .and()
+                .httpBasic().disable()
+                // ReST is stateless, no sessions
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) //
                 ;
 
         http
