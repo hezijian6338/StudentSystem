@@ -1,4 +1,5 @@
 package com.Mrs.Wang.project.service;
+import com.Mrs.Wang.project.DTO.RolesPermissionDTO;
 import com.Mrs.Wang.project.model.Permission;
 import com.Mrs.Wang.project.core.Service;
 
@@ -10,4 +11,5 @@ import java.util.List;
  */
 public interface PermissionService extends Service<Permission> {
     public List<Permission> findByAdminUserId(Long userId);
+    public List<RolesPermissionDTO> findRoleWithPermission();
 }

@@ -1,5 +1,6 @@
 package com.Mrs.Wang.project.web;
 
+import com.Mrs.Wang.project.DTO.RolesPermissionDTO;
 import com.Mrs.Wang.project.core.Result;
 import com.Mrs.Wang.project.core.ResultGenerator;
 import com.Mrs.Wang.project.model.Permission;
@@ -42,6 +43,12 @@ public class PermissionController {
     public Result detail(@PathVariable Integer id) {
         Permission permission = permissionService.findById(id);
         return ResultGenerator.genSuccessResult(permission);
+    }
+
+    @GetMapping("/all")
+    public Result findRoleWithPermission() {
+        List<RolesPermissionDTO> rolesPermission = permissionService.findRoleWithPermission();
+        return ResultGenerator.genSuccessResult(rolesPermission);
     }
 
     @GetMapping

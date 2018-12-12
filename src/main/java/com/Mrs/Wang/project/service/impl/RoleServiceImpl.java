@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -22,7 +22,13 @@ public class RoleServiceImpl extends AbstractService<Role> implements RoleServic
     @Resource
     private RoleMapper roleMapper;
 
-    public List<Map<String,Object>>findRoleWithUser() {
-        return roleMapper.findRoleWithUser();
+    public List<RolesUserDTO> findRoleWithUser() {
+        List<Role> roles = this.findAll();
+        List<RolesUserDTO> rolesUserList = new ArrayList<>();
+        for (Role role : roles) {
+            RolesUserDTO rolesUser = roleMapper.findRoleWithUser(role.getName());
+            rolesUserList.add(rolesUser);
+        }
+        return rolesUserList;
     }
 }

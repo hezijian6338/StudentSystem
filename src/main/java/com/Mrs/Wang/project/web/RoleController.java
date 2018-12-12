@@ -1,6 +1,7 @@
 package com.Mrs.Wang.project.web;
 
 import com.Mrs.Wang.project.DTO.RolesUserDTO;
+import com.Mrs.Wang.project.DTO.UserDTO;
 import com.Mrs.Wang.project.core.Result;
 import com.Mrs.Wang.project.core.ResultGenerator;
 import com.Mrs.Wang.project.model.Role;
@@ -48,7 +49,7 @@ public class RoleController {
 
     @GetMapping("/all")
     public Result findRoleWithUser() {
-        List<Map<String,Object>> rolesuser = roleService.findRoleWithUser();
+        List<RolesUserDTO> rolesuser = roleService.findRoleWithUser();
         return ResultGenerator.genSuccessResult(rolesuser);
     }
 

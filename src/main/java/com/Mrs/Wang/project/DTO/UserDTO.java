@@ -13,36 +13,29 @@ import java.util.List;
  **/
 
 public class UserDTO {
-        private Long id;
+    private Long id;
 
-        private String username;
+    private String name;
 
-        /**
-         * @return id
-         */
-        public Long getId() {
-            return id;
-        }
+    /**
+     * @return id
+     */
+    public Long getId() {
+        return id;
+    }
 
-        /**
-         * @param id
-         */
-        public void setId(Long id) {
-            this.id = id;
-        }
+    /**
+     * @param id
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-        /**
-         * @return username
-         */
-        public String getUsername() {
-            return username;
-        }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-        /**
-         * @param username
-         */
-        public void setUsername(String username) {
-            this.username = username;
-        }
-
+    public String getName() {
+        return name;
+    }
 }

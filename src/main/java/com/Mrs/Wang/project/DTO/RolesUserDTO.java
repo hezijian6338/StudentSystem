@@ -1,5 +1,6 @@
 package com.Mrs.Wang.project.DTO;
 
+import javax.jws.soap.SOAPBinding;
 import java.util.List;
 
 /**
@@ -10,12 +11,26 @@ import java.util.List;
  **/
 
 public class RolesUserDTO {
-    private String rolename;
+    private String id;
+
+    private String name;
 
     private List<UserDTO> username;
 
-    public void setRolename(String rolename) {
-        this.rolename = rolename;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public List<UserDTO> getUsername() {
@@ -24,9 +39,5 @@ public class RolesUserDTO {
 
     public void setUsername(List<UserDTO> username) {
         this.username = username;
-    }
-
-    public String getRolename() {
-        return rolename;
     }
 }
