@@ -15,4 +15,5 @@ public interface UserService extends Service<User> {
     List<String> searchRoleByuser(String username);
     public User findByUserName(String username);
     public List<UserDTO> findByRoleName(String rolename);
+    public List<User> findUserRole();
 }

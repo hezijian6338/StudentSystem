@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.Mrs.Wang.project.dao.UserRoleMapper">
-  <resultMap id="BaseResultMap" type="com.Mrs.Wang.project.model.UserRole">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="Sys_user_id" jdbcType="BIGINT" property="sysUserId" />
-    <result column="Sys_role_id" jdbcType="BIGINT" property="sysRoleId" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="com.Mrs.Wang.project.model.UserRole">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="Sys_user_id" jdbcType="BIGINT" property="sysUserId"/>
+        <result column="Sys_role_id" jdbcType="BIGINT" property="sysRoleId"/>
+    </resultMap>
+
+    <delete id="deleteByUserid" parameterType="java.lang.Long">
+      delete from Sys_role_user where sys_user_id = #{userid}
+    </delete>
 </mapper>

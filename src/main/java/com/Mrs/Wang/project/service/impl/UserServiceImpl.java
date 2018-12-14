@@ -43,4 +43,14 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
         return userMapper.findByRoleName(rolename);
     }
 
+    public List<User> findUserRole() {
+        List<User> user = this.findAll();
+        List<User> user_rolename = new ArrayList<>();
+        for (User user1 : user) {
+            User user_role = userMapper.findByUserName(user1.getUsername());
+            user_rolename.add(user_role);
+        }
+        return user_rolename;
+    }
+
 }
