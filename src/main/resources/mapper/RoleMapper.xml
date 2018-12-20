@@ -1,31 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.Mrs.Wang.project.dao.RoleMapper">
-  <resultMap id="BaseResultMap" type="com.Mrs.Wang.project.model.Role">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="com.Mrs.Wang.project.model.Role">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+    </resultMap>
 
-  <resultMap id="Role_User" type="com.Mrs.Wang.project.DTO.RolesUserDTO">
-    <result property="id" column="roleid"/>
-    <result property="name" column="rolename"/>
-    <collection property="username" ofType="com.Mrs.Wang.project.DTO.UserDTO">
-      <id column="userid" property="id"/>
-      <result column="username" property="name"/>
-    </collection>
-  </resultMap>
+    <resultMap id="Role_User" type="com.Mrs.Wang.project.DTO.RolesUserDTO">
+        <result property="id" column="roleid"/>
+        <result property="name" column="rolename"/>
+        <collection property="username" ofType="com.Mrs.Wang.project.DTO.UserDTO">
+            <id column="userid" property="id"/>
+            <result column="username" property="name"/>
+        </collection>
+    </resultMap>
 
-  <select id="findRoleWithUser" resultMap="Role_User" parameterType="java.lang.String">
-    select r.id roleid, r.name rolename,u.id userid,u.username
-    from Sys_Role r
-    left join Sys_role_user sru on sru.sys_role_id = r.id
-    left join Sys_User u on u.id = sru.sys_user_id
-    <if test="rolename != null and rolename != ''">
-     where r.name = #{rolename}
-    </if>
+    <resultMap id="Role_Permission" type="com.Mrs.Wang.project.model.Role">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <collection property="permissions" ofType="com.Mrs.Wang.project.model.Permission">
+            <id column="permissionid" property="id"/>
+            <result column="pname" property="name"/>
+            <result column="description" property="description"/>
+        </collection>
+    </resultMap>
+
+    <select id="findRoleWithUser" resultMap="Role_User" parameterType="java.lang.String">
+        select r.id roleid, r.name rolename,u.id userid,u.username
+        from Sys_Role r
+        left join Sys_role_user sru on sru.sys_role_id = r.id
+        left join Sys_User u on u.id = sru.sys_user_id
+        <if test="rolename != null and rolename != ''">
+            where r.name = #{rolename}
+        </if>
+    </select>
+
+    <select id="findeRoleByRoleName" resultMap="Role_Permission" parameterType="java.lang.String">
+      select sr.*, sp.id permissionid, sp.name pname, sp.description from Sys_Role sr
+      left join Sys_permission_role spr on spr.role_id = sr.id
+      left join Sys_permission sp on spr.permission_id = sp.id
+      <if test="rolename != null and rolename != ''">
+          where sr.name = #{rolename}
+      </if>
   </select>
 
 </mapper>

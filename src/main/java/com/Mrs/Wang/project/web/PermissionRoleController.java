@@ -3,7 +3,9 @@ package com.Mrs.Wang.project.web;
 import com.Mrs.Wang.project.core.Result;
 import com.Mrs.Wang.project.core.ResultGenerator;
 import com.Mrs.Wang.project.model.PermissionRole;
+import com.Mrs.Wang.project.model.Role;
 import com.Mrs.Wang.project.service.PermissionRoleService;
+import com.Mrs.Wang.project.service.RoleService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +21,9 @@ import java.util.List;
 public class PermissionRoleController {
     @Resource
     private PermissionRoleService permissionRoleService;
+
+    @Resource
+    private RoleService roleService;
 
     @PostMapping
     public Result add(@RequestBody PermissionRole permissionRole) {
@@ -44,11 +49,20 @@ public class PermissionRoleController {
         return ResultGenerator.genSuccessResult(permissionRole);
     }
 
+//    @GetMapping
+//    public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
+//        PageHelper.startPage(page, size);
+//        List<PermissionRole> list = permissionRoleService.findAll();
+//        PageInfo pageInfo = new PageInfo(list);
+//        return ResultGenerator.genSuccessResult(pageInfo);
+//    }
+
     @GetMapping
-    public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
+    public Result findRoleWithPermission(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);
-        List<PermissionRole> list = permissionRoleService.findAll();
+        List<Role> list = roleService.findRoleWithPermission();
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
     }
+
 }

@@ -10,4 +10,5 @@ import java.util.Map;
 
 public interface RoleMapper extends Mapper<Role> {
     public RolesUserDTO findRoleWithUser(@Param("rolename") String rolename);
+    public Role findeRoleByRoleName(@Param("rolename") String rolename);
 }

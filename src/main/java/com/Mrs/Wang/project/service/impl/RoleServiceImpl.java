@@ -31,4 +31,13 @@ public class RoleServiceImpl extends AbstractService<Role> implements RoleServic
         }
         return rolesUserList;
     }
+
+    public List<Role> findRoleWithPermission() {
+        List<Role> roles = this.findAll();
+        List<Role> role_per = new ArrayList<>();
+        for(Role role : roles) {
+            role_per.add(roleMapper.findeRoleByRoleName(role.getName()));
+        }
+        return role_per;
+    }
 }

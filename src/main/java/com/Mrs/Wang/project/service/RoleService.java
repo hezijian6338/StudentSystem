@@ -11,4 +11,6 @@ import java.util.List;
  */
 public interface RoleService extends Service<Role> {
     public List<RolesUserDTO> findRoleWithUser();
+
+    public List<Role> findRoleWithPermission();
 }

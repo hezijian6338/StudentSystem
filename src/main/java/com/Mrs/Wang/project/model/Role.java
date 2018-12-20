@@ -12,6 +12,9 @@ public class Role {
     @Column(name = "name")
     private String name;
 
+    @Transient
+    private List<Permission> permissions;
+
 
 
     /**
@@ -42,5 +45,17 @@ public class Role {
         this.name = name;
     }
 
+    /**
+     * @param permissions
+     */
+    public void setPermissions(List<Permission> permissions) {
+        this.permissions = permissions;
+    }
 
+    /**
+     * @return permissions
+     */
+    public List<Permission> getPermissions() {
+        return permissions;
+    }
 }
