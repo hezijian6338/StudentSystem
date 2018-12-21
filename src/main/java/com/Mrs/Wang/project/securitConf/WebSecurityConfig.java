@@ -47,6 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .sameOrigin()
 //                .and()
                 .authorizeRequests()
+                .antMatchers(HttpMethod.GET, "/user/non/password").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .anyRequest().authenticated() //任何请求,登录后可以访问
 //                .and()
