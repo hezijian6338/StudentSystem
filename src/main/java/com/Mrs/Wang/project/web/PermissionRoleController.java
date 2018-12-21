@@ -34,7 +34,7 @@ public class PermissionRoleController {
     @PostMapping
     public Result editPermissionRole(@RequestBody Role role) {
         permissionRoleService.editPermissionRole(role);
-        return ResultGenerator.genSuccessResult();
+        return ResultGenerator.genSuccessResult().setMessage(role.getName());
     }
 
     @DeleteMapping("/{id}")

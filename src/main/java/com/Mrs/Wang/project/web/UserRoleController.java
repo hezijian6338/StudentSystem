@@ -29,10 +29,11 @@ public class UserRoleController {
 //        userRoleService.save(userRole);
 //        return ResultGenerator.genSuccessResult();
 //    }
+
     @PostMapping(produces = "application/json;charset=UTF-8")
     public Result editUserRole(@RequestBody User user) {
         userRoleService.editUserRole(user);
-        return ResultGenerator.genSuccessResult();
+        return ResultGenerator.genSuccessResult().setMessage(user.getUsername());
     }
 
     @DeleteMapping("/{id}")
