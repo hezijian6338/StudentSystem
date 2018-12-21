@@ -25,9 +25,15 @@ public class PermissionRoleController {
     @Resource
     private RoleService roleService;
 
+//    @PostMapping
+//    public Result add(@RequestBody PermissionRole permissionRole) {
+//        permissionRoleService.save(permissionRole);
+//        return ResultGenerator.genSuccessResult();
+//    }
+
     @PostMapping
-    public Result add(@RequestBody PermissionRole permissionRole) {
-        permissionRoleService.save(permissionRole);
+    public Result editPermissionRole(@RequestBody Role role) {
+        permissionRoleService.editPermissionRole(role);
         return ResultGenerator.genSuccessResult();
     }
 

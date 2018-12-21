@@ -9,4 +9,8 @@
     <result column="role_id" jdbcType="BIGINT" property="roleId" />
     <result column="permission_id" jdbcType="BIGINT" property="permissionId" />
   </resultMap>
+
+  <delete id="deleteByRoleid" parameterType="java.lang.Long">
+      delete from Sys_permission_role where Sys_permission_role.role_id = #{roleid}
+  </delete>
 </mapper>
