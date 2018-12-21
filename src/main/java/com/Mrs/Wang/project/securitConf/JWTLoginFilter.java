@@ -57,10 +57,15 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
                                                 HttpServletResponse res) throws AuthenticationException {
         try {
             User user = new User();
+            String password = req.getParameter("password");
+
             user.setUsername(req.getParameter("username"));
-            user.setPassword(req.getParameter("password"));
-            System.out.println("加密前的密码:" + user.getPassword());
-            System.out.println("加密后的密码:" + JWTUtils.setAuthentication(user.getPassword()));
+            // user.setPassword(req.getParameter("password"));
+
+            user.setPassword(JWTUtils.setAuthentication(password));
+
+            System.out.println("加密前的密码:" + password);
+            System.out.println("加密后的密码:" + JWTUtils.setAuthentication(password));
 //            User user = new ObjectMapper()
 //                    .readValue(req.getInputStream(), User.class);
 
