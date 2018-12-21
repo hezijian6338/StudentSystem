@@ -43,7 +43,7 @@
 	</select>
 
     <select id="findUserNonPw" resultType="java.util.List">
-        select u.name
+        select u.username
         from Sys_User u
     </select>
 
