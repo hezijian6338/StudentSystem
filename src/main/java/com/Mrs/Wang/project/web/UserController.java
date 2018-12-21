@@ -83,4 +83,12 @@ public class UserController {
         return ResultGenerator.genSuccessResult(pageInfo);
     }
 
+    @GetMapping("/user/non/password")
+    public Result findUserNonPw(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
+        PageHelper.startPage(page, size);
+        List<String> list = userMapper.findUserNonPw();
+        PageInfo pageInfo = new PageInfo(list);
+        return ResultGenerator.genSuccessResult(pageInfo);
+    }
+
 }

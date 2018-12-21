@@ -42,4 +42,9 @@
         where r.name= #{rolename}
 	</select>
 
+    <select id="findUserNonPw" resultMap="java.util.List">
+        select u.name
+        from Sys_User u
+    </select>
+
 </mapper>
