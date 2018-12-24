@@ -48,7 +48,7 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
 
         /** 过滤权限的时候,对于有Token和不是preflight的请求通通重新获取权限信息,因为很大几率会在preflight中丢失记录*/
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        if(!request.getMethod().equals("OPTIONS")) {
+        if(!request.getMethod().equals("OPTIONS") & request.getHeader("X-Token") != null) {
             String username = JWTUtils.getAuthentication(request.getHeader("X-Token"));
             try {
                 com.Mrs.Wang.project.model.User user = userService.findByUserName(username);
@@ -68,6 +68,8 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
                 logger.warn("验证出现错误: 重新获取权限步骤,出现{}错误!", e);
                 response.setHeader("X-Token", String.valueOf(ResultCode.UNAUTHORIZED));
             }
+        } else if (new AntPathRequestMatcher("/user/non/password").matches(request)) {
+            return;
         }
 
 
@@ -87,7 +89,7 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
                     }
                 }
             } else if (ga.getAuthority().equals("ROLE_ANONYMOUS")) {//未登录只允许访问 login 页面
-                matcher = new AntPathRequestMatcher("/login");
+                matcher = new AntPathRequestMatcher("/user/non/password");
                 if (matcher.matches(request)) {
                     return;
                 }
