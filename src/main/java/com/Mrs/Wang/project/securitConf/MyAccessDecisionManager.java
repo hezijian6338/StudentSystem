@@ -69,6 +69,7 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
                 response.setHeader("X-Token", String.valueOf(ResultCode.UNAUTHORIZED));
             }
         } else if (new AntPathRequestMatcher("/user/non/password").matches(request)) {
+            response.setHeader("X-Token", String.valueOf(ResultCode.SUCCESS));
             return;
         }
 

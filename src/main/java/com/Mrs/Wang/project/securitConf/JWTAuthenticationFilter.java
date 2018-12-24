@@ -50,8 +50,9 @@ public class JWTAuthenticationFilter extends BasicAuthenticationFilter {
         System.out.println("--------------------------: 用户进入过滤器请求地址：" + request.getRequestURL() + ",请求方法：" + request.getMethod());
 
         if (header == null || !header.startsWith("Dragonsking ")) {
-            response.setHeader("X-Token", String.valueOf(ResultCode.UNAUTHORIZED));
-            //SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken("abel", null, new ArrayList<>()));
+            System.out.println("--------------------------: 用户没有携带请求头~");
+            // response.setHeader("X-Token", String.valueOf(ResultCode.UNAUTHORIZED));
+            // SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken("abel", null, new ArrayList<>()));
             chain.doFilter(request, response);
             return;
         }
