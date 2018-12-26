@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.List;
 
+import static org.springframework.util.ObjectUtils.isEmpty;
+
 /**
 * Created by Dragonsking309 on 2018/11/19.
 */
@@ -47,6 +49,9 @@ public class StudentsController {
     @GetMapping("/{fieldfieldName}/{value}")
     public Result searchBy(@PathVariable String fieldfieldName, @PathVariable String value){
         Students students = studentsService.findBy(fieldfieldName, value);
+        if (isEmpty(students)){
+            students = new Students();
+        }
         return ResultGenerator.genSuccessResult(students);
     }
 
