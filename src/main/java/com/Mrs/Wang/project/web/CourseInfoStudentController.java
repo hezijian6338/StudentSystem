@@ -57,11 +57,18 @@ public class CourseInfoStudentController {
         return ResultGenerator.genSuccessResult();
     }
 
-    @GetMapping("/{id}")
-    public Result detail(@PathVariable Integer id) {
-        CourseInfoStudent courseInfoStudent = courseInfoStudentService.findById(id);
+//    @GetMapping("/{id}")
+//    public Result detail(@PathVariable Integer id) {
+//        CourseInfoStudent courseInfoStudent = courseInfoStudentService.findById(id);
+//        return ResultGenerator.genSuccessResult(courseInfoStudent);
+//    }
+
+    @GetMapping("/{studentno}")
+    public Result detail(@PathVariable String studentno) {
+        List<CourseInfoStudent> courseInfoStudent = courseInfoStudentService.findByStudentno(studentno);
         return ResultGenerator.genSuccessResult(courseInfoStudent);
     }
+
 
     @GetMapping("/{fieldfieldName}/{value}")
     public Result searchBy(@PathVariable String fieldfieldName, @PathVariable String value){

@@ -5,10 +5,13 @@ import com.Mrs.Wang.project.model.CourseInfoStudent;
 import com.Mrs.Wang.project.core.Service;
 import com.Mrs.Wang.project.model.Students;
 
+import java.util.List;
+
 
 /**
  * Created by Dragonsking309 on 2018/11/19.
  */
 public interface CourseInfoStudentService extends Service<CourseInfoStudent> {
     public void studentToCourseCode(Students students, CourseInfo courseInfo);
+    public List<CourseInfoStudent> findByStudentno(String studentno);
 }
