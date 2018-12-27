@@ -70,9 +70,9 @@ public class CourseInfoStudentController {
     }
 
 
-    @GetMapping("/{fieldfieldName}/{value}")
-    public Result searchBy(@PathVariable String fieldfieldName, @PathVariable String value){
-        CourseInfoStudent courseInfoStudent = courseInfoStudentService.findBy(fieldfieldName, value);
+    @GetMapping("/{fieldName}/{value}")
+    public Result searchBy(@PathVariable String fieldName, @PathVariable String value){
+        CourseInfoStudent courseInfoStudent = courseInfoStudentService.findBy(fieldName, value);
         return ResultGenerator.genSuccessResult(courseInfoStudent);
     }
 

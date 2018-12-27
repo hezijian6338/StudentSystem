@@ -62,6 +62,12 @@ public class LearningguidStudentslistController {
         return ResultGenerator.genSuccessResult(learningguidStudentslist);
     }
 
+    @GetMapping("/{fieldName}/{value}")
+    public Result findBy(@PathVariable String fieldName, @PathVariable String value) {
+        LearningguidStudentslist learningguidStudentslist = learningguidStudentslistService.findBy(fieldName, value);
+        return ResultGenerator.genSuccessResult(learningguidStudentslist);
+    }
+
     @GetMapping
     public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);
