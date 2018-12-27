@@ -48,7 +48,7 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
 
         /** 过滤权限的时候,对于有Token和不是preflight的请求通通重新获取权限信息,因为很大几率会在preflight中丢失记录*/
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        if(!request.getMethod().equals("OPTIONS") & request.getHeader("X-Token") != null) {
+        if(!request.getMethod().equals("OPTIONS") && request.getHeader("X-Token") != null) {
             String username = JWTUtils.getAuthentication(request.getHeader("X-Token"));
             try {
                 com.Mrs.Wang.project.model.User user = userService.findByUserName(username);
@@ -70,6 +70,10 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
             }
         } else if (new AntPathRequestMatcher("/user/non/password").matches(request)) {
             response.setHeader("X-Token", String.valueOf(ResultCode.SUCCESS));
+            return;
+        } else if (request.getMethod().equals("OPTIONS")) {
+            response.setHeader("X-Token", String.valueOf(ResultCode.UNAUTHORIZED));
+            logger.warn("preflight request!");
             return;
         }
 
