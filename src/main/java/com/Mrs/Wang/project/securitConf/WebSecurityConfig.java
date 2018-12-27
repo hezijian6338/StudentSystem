@@ -60,8 +60,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //注销行为任意访问
                 .and()
                 .csrf().disable()
-                .cors()
-                .and()
+                //.cors()
+                //.and()
                 .httpBasic().disable()
                 // ReST is stateless, no sessions
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) //

@@ -101,8 +101,8 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
             }
         }
         String token = response.getHeader("X-Token");
-        boolean pass = token.equals(ResultCode.SUCCESS);
-        if (pass)
+        boolean pass = token.equals(String.valueOf(ResultCode.SUCCESS));
+        if (!pass)
             throw new AccessDeniedException("no right");
         else
             return;

@@ -64,7 +64,7 @@ public class CourseInfoStudentController {
 //    }
 
     @GetMapping("/{studentno}")
-    public Result detail(@PathVariable String studentno) {
+    public Result findByStudentno(@PathVariable String studentno) {
         List<CourseInfoStudent> courseInfoStudent = courseInfoStudentService.findByStudentno(studentno);
         return ResultGenerator.genSuccessResult(courseInfoStudent);
     }
