@@ -35,4 +35,9 @@
         and CLASSINFO = #{classInfo}
     </select>
 
+  <select id="conditionOfAca" resultType="String">
+        select distinct ACADEMICYEAR
+        from t_courseinfo
+    </select>
+
 </mapper>

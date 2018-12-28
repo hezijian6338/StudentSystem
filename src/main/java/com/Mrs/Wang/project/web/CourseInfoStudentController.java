@@ -73,11 +73,6 @@ public class CourseInfoStudentController {
         return ResultGenerator.genSuccessResult(courseInfoStudent);
     }
 
-    @GetMapping("/condition/aca")
-    public Result conditionOfAca() {
-        return ResultGenerator.genSuccessResult(courseInfoStudentMapper.conditionOfAca());
-    }
-
     @GetMapping("/{fieldName}/{value}")
     public Result searchBy(@PathVariable String fieldName, @PathVariable String value){
         CourseInfoStudent courseInfoStudent = courseInfoStudentService.findBy(fieldName, value);

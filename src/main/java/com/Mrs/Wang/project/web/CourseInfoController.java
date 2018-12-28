@@ -56,6 +56,11 @@ public class CourseInfoController {
         return ResultGenerator.genSuccessResult(courseInfo);
     }
 
+    @GetMapping("/condition/aca")
+    public Result conditionOfAca() {
+        return ResultGenerator.genSuccessResult(courseInfoMapper.conditionOfAca());
+    }
+
     @GetMapping("condition/{aca}/{courseType}/{term}/{credit}/{className}")
     public Result searchOfCondition(@PathVariable String aca, @PathVariable String courseType, @PathVariable String term, @PathVariable String credit, @PathVariable String className) {
         CourseInfoStuCondition courseInfoStuCondition = new CourseInfoStuCondition();

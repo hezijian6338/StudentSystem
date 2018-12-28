@@ -48,9 +48,4 @@
     where studentno = #{studentno}
   </select>
 
-    <select id="conditionOfAca" resultType="String">
-        select distinct ACADEMICYEAR
-        from t_courseinfo
-    </select>
-
 </mapper>

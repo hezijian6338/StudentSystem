@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface CourseInfoMapper extends Mapper<CourseInfo> {
     public List<CourseInfo> searchByCondition(CourseInfoStuCondition courseInfoStuCondition);
+    public List<String> conditionOfAca();
 }
