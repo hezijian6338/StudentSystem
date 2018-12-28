@@ -24,4 +24,15 @@
     <result column="LIMITSTUDENTNUM" jdbcType="DECIMAL" property="limitstudentnum" />
     <result column="CLASSINFO" jdbcType="LONGVARCHAR" property="classinfo" />
   </resultMap>
+
+  <select id="searchByCondition" parameterType="com.Mrs.Wang.project.DTO.CourseInfoStuCondition" resultMap="BaseResultMap">
+        select *
+        from t_courseinfo
+        where ACADEMICYEAR = #{aca}
+        and COURSETYPE = #{courseType}
+        and TERM = #{term}
+        and CREDIT = #{credit}
+        and CLASSINFO = #{classInfo}
+    </select>
+
 </mapper>

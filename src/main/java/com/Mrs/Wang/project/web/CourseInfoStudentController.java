@@ -2,6 +2,7 @@ package com.Mrs.Wang.project.web;
 
 import com.Mrs.Wang.project.core.Result;
 import com.Mrs.Wang.project.core.ResultGenerator;
+import com.Mrs.Wang.project.dao.CourseInfoStudentMapper;
 import com.Mrs.Wang.project.model.CourseInfo;
 import com.Mrs.Wang.project.model.CourseInfoStudent;
 import com.Mrs.Wang.project.model.Students;
@@ -30,6 +31,9 @@ public class CourseInfoStudentController {
     @Resource
     private CourseInfoService courseInfoService;
 
+    @Resource
+    private CourseInfoStudentMapper courseInfoStudentMapper;
+
     @PostMapping
     public Result add(@RequestBody CourseInfoStudent courseInfoStudent) {
         courseInfoStudentService.save(courseInfoStudent);
@@ -40,7 +44,7 @@ public class CourseInfoStudentController {
     public Result _add(@PathVariable String studentno, @PathVariable String coursecode) {
         Students students = studentsService.findBy("studentno", studentno);
         CourseInfo courseInfo = courseInfoService.findBy("coursecode", coursecode);
-
+        courseInfoStudentService.studentToCourseCode(students,courseInfo);
         return ResultGenerator.genSuccessResult();
     }
 
@@ -69,6 +73,10 @@ public class CourseInfoStudentController {
         return ResultGenerator.genSuccessResult(courseInfoStudent);
     }
 
+    @GetMapping("/condition/aca")
+    public Result conditionOfAca() {
+        return ResultGenerator.genSuccessResult(courseInfoStudentMapper.conditionOfAca());
+    }
 
     @GetMapping("/{fieldName}/{value}")
     public Result searchBy(@PathVariable String fieldName, @PathVariable String value){

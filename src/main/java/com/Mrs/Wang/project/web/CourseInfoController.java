@@ -1,7 +1,9 @@
 package com.Mrs.Wang.project.web;
 
+import com.Mrs.Wang.project.DTO.CourseInfoStuCondition;
 import com.Mrs.Wang.project.core.Result;
 import com.Mrs.Wang.project.core.ResultGenerator;
+import com.Mrs.Wang.project.dao.CourseInfoMapper;
 import com.Mrs.Wang.project.model.CourseInfo;
 import com.Mrs.Wang.project.model.TeacherInfo;
 import com.Mrs.Wang.project.service.CourseInfoService;
@@ -20,6 +22,9 @@ import java.util.List;
 public class CourseInfoController {
     @Resource
     private CourseInfoService courseInfoService;
+
+    @Resource
+    private CourseInfoMapper courseInfoMapper;
 
     @PostMapping
     public Result add(@RequestBody CourseInfo courseInfo) {
@@ -49,6 +54,18 @@ public class CourseInfoController {
     public Result searchBy(@PathVariable String fieldfieldName, @PathVariable String value){
         CourseInfo courseInfo = courseInfoService.findBy(fieldfieldName, value);
         return ResultGenerator.genSuccessResult(courseInfo);
+    }
+
+    @GetMapping("condition/{aca}/{courseType}/{term}/{credit}/{className}")
+    public Result searchOfCondition(@PathVariable String aca, @PathVariable String courseType, @PathVariable String term, @PathVariable String credit, @PathVariable String className) {
+        CourseInfoStuCondition courseInfoStuCondition = new CourseInfoStuCondition();
+        courseInfoStuCondition.setAca(aca);
+        courseInfoStuCondition.setClassInfo(courseType);
+        courseInfoStuCondition.setTerm(term);
+        courseInfoStuCondition.setCredit(credit);
+        courseInfoStuCondition.setCourseType(courseType);
+        List<CourseInfo> courseInfos = courseInfoMapper.searchByCondition(courseInfoStuCondition);
+        return ResultGenerator.genSuccessResult(courseInfos);
     }
 
     @GetMapping
