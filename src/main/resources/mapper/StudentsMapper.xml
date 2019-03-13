@@ -1,41 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.Mrs.Wang.project.dao.StudentsMapper">
-  <resultMap id="BaseResultMap" type="com.Mrs.Wang.project.model.Students">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="STU_ID" jdbcType="VARCHAR" property="stuId" />
-    <result column="STUDENTNO" jdbcType="VARCHAR" property="studentno" />
-    <result column="STUNAME" jdbcType="VARCHAR" property="stuname" />
-    <result column="SEX" jdbcType="VARCHAR" property="sex" />
-    <result column="BIRTHDAY" jdbcType="TIMESTAMP" property="birthday" />
-    <result column="POLITICALSTATUS" jdbcType="VARCHAR" property="politicalstatus" />
-    <result column="NATION" jdbcType="VARCHAR" property="nation" />
-    <result column="NATIVEPLACE" jdbcType="VARCHAR" property="nativeplace" />
-    <result column="FROM_PLACE" jdbcType="VARCHAR" property="fromPlace" />
-    <result column="IDCARDNO" jdbcType="VARCHAR" property="idcardno" />
-    <result column="ORG_ID" jdbcType="VARCHAR" property="orgId" />
-    <result column="ORG_NAME" jdbcType="VARCHAR" property="orgName" />
-    <result column="MAJOR" jdbcType="VARCHAR" property="major" />
-    <result column="MAJORFIELD" jdbcType="VARCHAR" property="majorfield" />
-    <result column="MAJORCATEGORIES" jdbcType="VARCHAR" property="majorcategories" />
-    <result column="CLASSNAME" jdbcType="VARCHAR" property="classname" />
-    <result column="EDUCATIONSYSTEM" jdbcType="DECIMAL" property="educationsystem" />
-    <result column="SCHOOLINGLENGTH" jdbcType="DECIMAL" property="schoolinglength" />
-    <result column="ACCEPTANCEDATE" jdbcType="TIMESTAMP" property="acceptancedate" />
-    <result column="MIDDLESCHOOL" jdbcType="VARCHAR" property="middleschool" />
-    <result column="FAMILYTELNO" jdbcType="VARCHAR" property="familytelno" />
-    <result column="MOBILENO" jdbcType="VARCHAR" property="mobileno" />
-    <result column="POSTCODE" jdbcType="VARCHAR" property="postcode" />
-    <result column="TRAVELRANGE" jdbcType="VARCHAR" property="travelrange" />
-    <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
-    <result column="SCHOOLSTATUS" jdbcType="VARCHAR" property="schoolstatus" />
-    <result column="PHOTOPATH" jdbcType="VARCHAR" property="photopath" />
-    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
-    <result column="MAJOR_CODE" jdbcType="VARCHAR" property="majorCode" />
-    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
-    <result column="SCORE" jdbcType="DECIMAL" property="score" />
-    <result column="GRADE" jdbcType="VARCHAR" property="grade" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="com.Mrs.Wang.project.model.Students">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="STU_ID" jdbcType="VARCHAR" property="stuId"/>
+        <result column="STUDENTNO" jdbcType="VARCHAR" property="studentno"/>
+        <result column="STUNAME" jdbcType="VARCHAR" property="stuname"/>
+        <result column="SEX" jdbcType="VARCHAR" property="sex"/>
+        <result column="BIRTHDAY" jdbcType="TIMESTAMP" property="birthday"/>
+        <result column="POLITICALSTATUS" jdbcType="VARCHAR" property="politicalstatus"/>
+        <result column="NATION" jdbcType="VARCHAR" property="nation"/>
+        <result column="NATIVEPLACE" jdbcType="VARCHAR" property="nativeplace"/>
+        <result column="FROM_PLACE" jdbcType="VARCHAR" property="fromPlace"/>
+        <result column="IDCARDNO" jdbcType="VARCHAR" property="idcardno"/>
+        <result column="ORG_ID" jdbcType="VARCHAR" property="orgId"/>
+        <result column="ORG_NAME" jdbcType="VARCHAR" property="orgName"/>
+        <result column="MAJOR" jdbcType="VARCHAR" property="major"/>
+        <result column="MAJORFIELD" jdbcType="VARCHAR" property="majorfield"/>
+        <result column="MAJORCATEGORIES" jdbcType="VARCHAR" property="majorcategories"/>
+        <result column="CLASSNAME" jdbcType="VARCHAR" property="classname"/>
+        <result column="EDUCATIONSYSTEM" jdbcType="DECIMAL" property="educationsystem"/>
+        <result column="SCHOOLINGLENGTH" jdbcType="DECIMAL" property="schoolinglength"/>
+        <result column="ACCEPTANCEDATE" jdbcType="TIMESTAMP" property="acceptancedate"/>
+        <result column="MIDDLESCHOOL" jdbcType="VARCHAR" property="middleschool"/>
+        <result column="FAMILYTELNO" jdbcType="VARCHAR" property="familytelno"/>
+        <result column="MOBILENO" jdbcType="VARCHAR" property="mobileno"/>
+        <result column="POSTCODE" jdbcType="VARCHAR" property="postcode"/>
+        <result column="TRAVELRANGE" jdbcType="VARCHAR" property="travelrange"/>
+        <result column="ADDRESS" jdbcType="VARCHAR" property="address"/>
+        <result column="SCHOOLSTATUS" jdbcType="VARCHAR" property="schoolstatus"/>
+        <result column="PHOTOPATH" jdbcType="VARCHAR" property="photopath"/>
+        <result column="PASSWORD" jdbcType="VARCHAR" property="password"/>
+        <result column="MAJOR_CODE" jdbcType="VARCHAR" property="majorCode"/>
+        <result column="EMAIL" jdbcType="VARCHAR" property="email"/>
+        <result column="SCORE" jdbcType="DECIMAL" property="score"/>
+        <result column="GRADE" jdbcType="VARCHAR" property="grade"/>
+    </resultMap>
+
+    <select id="findCourseWithStudent" parameterType="com.Mrs.Wang.project.model.Students"
+            resultType="com.Mrs.Wang.project.model.CourseInfo">
+      select *
+      from t_courseinfo
+      where ACADEMICYEAR like '%'#{students.grade}'%'
+      and  CLASSINFO like '%'#{students.classname}'%';
+    </select>
+
+    <select id="findByStudentno" parameterType="String" resultMap="BaseResultMap">
+        select *
+        from t_students
+        where STUDENTNO = #{studentno};
+    </select>
+
+    <select id="findSelectedCoursesByStudentno" parameterType="String" resultType="com.Mrs.Wang.project.model.CourseInfo">
+        select *
+        from t_courseinfo_students
+        where STUDENTNO = #{studentno};
+    </select>
+
 </mapper>

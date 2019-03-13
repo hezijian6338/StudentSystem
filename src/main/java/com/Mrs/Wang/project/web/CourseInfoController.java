@@ -56,19 +56,31 @@ public class CourseInfoController {
         return ResultGenerator.genSuccessResult(courseInfo);
     }
 
+    /**
+     * TODO: 返回有什么学年
+     * @author hezijian6338
+     * @date 2019/3/13 15:21
+     * @param
+     * @return com.Mrs.Wang.project.core.Result
+     * @throws
+     **/
+
     @GetMapping("/condition/aca")
     public Result conditionOfAca() {
         return ResultGenerator.genSuccessResult(courseInfoMapper.conditionOfAca());
     }
 
-    @GetMapping("condition/{aca}/{courseType}/{term}/{credit}/{className}")
-    public Result searchOfCondition(@PathVariable String aca, @PathVariable String courseType, @PathVariable String term, @PathVariable String credit, @PathVariable String className) {
-        CourseInfoStuCondition courseInfoStuCondition = new CourseInfoStuCondition();
-        courseInfoStuCondition.setAca(aca);
-        courseInfoStuCondition.setClassInfo(courseType);
-        courseInfoStuCondition.setTerm(term);
-        courseInfoStuCondition.setCredit(credit);
-        courseInfoStuCondition.setCourseType(courseType);
+    /**
+     * TODO: 需要前端根据规定的DTO类来确定学生可选课的信息
+     * @author hezijian6338
+     * @date 2019/3/13 15:22
+     * @param courseInfoStuCondition
+     * @return com.Mrs.Wang.project.core.Result
+     * @throws
+     **/
+
+    @GetMapping("condition")
+    public Result searchOfCondition(@RequestBody CourseInfoStuCondition courseInfoStuCondition) {
         List<CourseInfo> courseInfos = courseInfoMapper.searchByCondition(courseInfoStuCondition);
         return ResultGenerator.genSuccessResult(courseInfos);
     }

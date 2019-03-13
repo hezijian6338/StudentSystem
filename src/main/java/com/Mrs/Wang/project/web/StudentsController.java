@@ -2,6 +2,7 @@ package com.Mrs.Wang.project.web;
 
 import com.Mrs.Wang.project.core.Result;
 import com.Mrs.Wang.project.core.ResultGenerator;
+import com.Mrs.Wang.project.model.CourseInfo;
 import com.Mrs.Wang.project.model.Students;
 import com.Mrs.Wang.project.service.StudentsService;
 import com.github.pagehelper.PageHelper;
@@ -14,8 +15,8 @@ import java.util.List;
 import static org.springframework.util.ObjectUtils.isEmpty;
 
 /**
-* Created by Dragonsking309 on 2018/11/19.
-*/
+ * Created by Dragonsking309 on 2018/11/19.
+ */
 @RestController
 @RequestMapping("/students")
 public class StudentsController {
@@ -47,9 +48,9 @@ public class StudentsController {
     }
 
     @GetMapping("/{fieldfieldName}/{value}")
-    public Result searchBy(@PathVariable String fieldfieldName, @PathVariable String value){
+    public Result searchBy(@PathVariable String fieldfieldName, @PathVariable String value) {
         Students students = studentsService.findBy(fieldfieldName, value);
-        if (isEmpty(students)){
+        if (isEmpty(students)) {
             students = new Students();
         }
         return ResultGenerator.genSuccessResult(students);
@@ -62,4 +63,58 @@ public class StudentsController {
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
     }
+
+    /**
+     * TODO: 根据学生基本信息返回可选的课程信息
+     *
+     * @param page
+     * @param size
+     * @param studentno
+     * @return com.Mrs.Wang.project.core.Result
+     * @throws
+     * @author hezijian6338
+     * @date 2019/3/13 15:32
+     **/
+
+    @GetMapping("/{studentno}/courseInfos")
+    public Result findCourseWithStudent(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size, @PathVariable String studentno) {
+        Students student = studentsService.findByStudentno(studentno);
+        List<CourseInfo> list = studentsService.findCourseWithStudent(student);
+        PageHelper.startPage(page, size);
+        PageInfo pageInfo = new PageInfo(list);
+        return ResultGenerator.genSuccessResult(pageInfo);
+    }
+
+    /**
+     * TODO: 根据返回的学号和选择课程的代码数据来保存选课
+     * @author hezijian6338
+     * @date 2019/3/13 15:34
+     * @param studentno
+     * @param courses
+     * @return com.Mrs.Wang.project.core.Result
+     * @throws
+     **/
+
+    @GetMapping("/{studentno}/courseinfoStudent")
+    public Result saveSelectedCourses(@PathVariable String studentno, @RequestBody List<String> courses) {
+        studentsService.saveSelectedCourses(studentno, courses);
+        return ResultGenerator.genSuccessResult();
+    }
+
+    /**
+     * TODO: 根据学号返回已选的课程
+     * @author hezijian6338
+     * @date 2019/3/13 16:42
+     * @param studentno
+     * @return com.Mrs.Wang.project.core.Result
+     * @throws
+     **/
+
+    @GetMapping("/{studentno}/selectCousrses")
+    public Result findSelectedCoursesByStudentno(@PathVariable String studentno) {
+        List<CourseInfo> list = studentsService.findSelectedCoursesByStudentno(studentno);
+        return ResultGenerator.genSuccessResult(list);
+    }
+
+
 }
