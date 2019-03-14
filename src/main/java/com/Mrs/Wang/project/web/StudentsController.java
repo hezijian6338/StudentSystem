@@ -4,6 +4,7 @@ import com.Mrs.Wang.project.core.Result;
 import com.Mrs.Wang.project.core.ResultGenerator;
 import com.Mrs.Wang.project.model.CourseInfo;
 import com.Mrs.Wang.project.model.Students;
+import com.Mrs.Wang.project.model.TeacherInfo;
 import com.Mrs.Wang.project.service.StudentsService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -95,7 +96,7 @@ public class StudentsController {
      * @throws
      **/
 
-    @GetMapping("/{studentno}/courseinfoStudent")
+    @PostMapping("/{studentno}/courseinfoStudent")
     public Result saveSelectedCourses(@PathVariable String studentno, @RequestBody List<String> courses) {
         studentsService.saveSelectedCourses(studentno, courses);
         return ResultGenerator.genSuccessResult();
@@ -110,10 +111,32 @@ public class StudentsController {
      * @throws
      **/
 
-    @GetMapping("/{studentno}/selectedCousrses")
+    @GetMapping("/{studentno}/cousrses")
     public Result findSelectedCoursesByStudentno(@PathVariable String studentno) {
         List<CourseInfo> list = studentsService.findSelectedCoursesByStudentno(studentno);
         return ResultGenerator.genSuccessResult(list);
+    }
+
+    /**
+     * TODO: 学生选择导学老师
+     * @author hezijian6338
+     * @date 2019/3/14 9:55
+     * @param studentno
+     * @param teacherno
+     * @return com.Mrs.Wang.project.core.Result
+     * @throws
+     **/
+
+    @PostMapping("/{studentno}/guidTeacher/{teacherno}")
+    public Result saveSelectGuidTeacher(@PathVariable String studentno, @PathVariable String teacherno) {
+        studentsService.saveSelectGuidTeacher(studentno, teacherno);
+        return ResultGenerator.genSuccessResult();
+    }
+
+    @GetMapping("/{studentno}/guidTeacher")
+    public Result findSelectedGuidTeacherByStudentno(@PathVariable String studentno) {
+        TeacherInfo teacherInfo = studentsService.findSelectedGuidTeacherByStudentno(studentno);
+        return ResultGenerator.genSuccessResult(teacherInfo);
     }
 
 

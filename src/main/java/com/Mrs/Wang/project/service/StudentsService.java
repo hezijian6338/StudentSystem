@@ -2,6 +2,7 @@ package com.Mrs.Wang.project.service;
 import com.Mrs.Wang.project.model.CourseInfo;
 import com.Mrs.Wang.project.model.Students;
 import com.Mrs.Wang.project.core.Service;
+import com.Mrs.Wang.project.model.TeacherInfo;
 
 import java.util.List;
 
@@ -66,5 +67,16 @@ public interface StudentsService extends Service<Students> {
      **/
 
     public void saveSelectGuidTeacher(String studentno, String teacherno);
+
+    /**
+     * TODO: 根据学号查询已经选择的导学老师
+     * @author hezijian6338
+     * @date 2019/3/14 9:58
+     * @param studentno
+     * @return com.Mrs.Wang.project.model.TeacherInfo
+     * @throws
+     **/
+
+    public TeacherInfo findSelectedGuidTeacherByStudentno(String studentno);
 
 }

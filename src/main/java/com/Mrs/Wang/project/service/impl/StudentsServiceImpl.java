@@ -4,6 +4,7 @@ import com.Mrs.Wang.project.dao.CourseInfoMapper;
 import com.Mrs.Wang.project.dao.StudentsMapper;
 import com.Mrs.Wang.project.dao.TeacherInfoMapper;
 import com.Mrs.Wang.project.model.*;
+import com.Mrs.Wang.project.service.LearningguidStudentslistService;
 import com.Mrs.Wang.project.service.StudentsService;
 import com.Mrs.Wang.project.core.AbstractService;
 import com.Mrs.Wang.project.utils.UUIDUtils;
@@ -17,6 +18,7 @@ import java.util.List;
 
 /**
  * Created by Dragonsking309 on 2018/11/19.
+ *
  * @author hezijian6338
  */
 @Service
@@ -32,13 +34,17 @@ public class StudentsServiceImpl extends AbstractService<Students> implements St
     @Resource
     private TeacherInfoMapper teacherInfoMapper;
 
+    @Resource
+    private LearningguidStudentslistService learningguidStudentslistService;
+
     /**
      * TODO: 方法描述
-     * @author hezijian6338
-     * @date 2019/3/13 13:48
+     *
      * @param students
      * @return java.util.List<com.Mrs.Wang.project.model.CourseInfo>
      * @throws
+     * @author hezijian6338
+     * @date 2019/3/13 13:48
      **/
 
     @Override
@@ -48,11 +54,12 @@ public class StudentsServiceImpl extends AbstractService<Students> implements St
 
     /**
      * TODO: 根据学生学号来找学生信息
-     * @author hezijian6338
-     * @date 2019/3/13 15:28
+     *
      * @param studentno
      * @return com.Mrs.Wang.project.model.Students
      * @throws
+     * @author hezijian6338
+     * @date 2019/3/13 15:28
      **/
 
     @Override
@@ -63,12 +70,13 @@ public class StudentsServiceImpl extends AbstractService<Students> implements St
 
     /**
      * TODO: 保存选课信息的实例
-     * @author hezijian6338
-     * @date 2019/3/13 14:44
+     *
      * @param studentno
-     * @param courses
+     * @param courses
      * @return void
      * @throws
+     * @author hezijian6338
+     * @date 2019/3/13 14:44
      **/
 
     @Override
@@ -118,6 +126,13 @@ public class StudentsServiceImpl extends AbstractService<Students> implements St
         ls.setClassname(student.getClassname());
         ls.setCreateTime(new Date());
         // 未完成setter,数据不完整
+    }
+
+    @Override
+    public TeacherInfo findSelectedGuidTeacherByStudentno(String studentno) {
+        LearningguidStudentslist ls = learningguidStudentslistService.findBy("studentno", studentno);
+        TeacherInfo teacherInfo = teacherInfoMapper.findByTeacherno(ls.getTeacherno());
+        return teacherInfo;
     }
 
 }
