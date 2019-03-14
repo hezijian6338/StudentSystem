@@ -39,4 +39,11 @@
     <result column="PARENT_ORG_ID" jdbcType="VARCHAR" property="parentOrgId" />
     <result column="INTRODUCE" jdbcType="LONGVARCHAR" property="introduce" />
   </resultMap>
+
+  <select id="findByTeacherno" parameterType="String" resultMap="BaseResultMap">
+    select *
+    from t_teacherinfo
+    where EMPLOY_NO = #{teacherno}
+  </select>
+
 </mapper>

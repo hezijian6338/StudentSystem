@@ -110,7 +110,7 @@ public class StudentsController {
      * @throws
      **/
 
-    @GetMapping("/{studentno}/selectCousrses")
+    @GetMapping("/{studentno}/selectedCousrses")
     public Result findSelectedCoursesByStudentno(@PathVariable String studentno) {
         List<CourseInfo> list = studentsService.findSelectedCoursesByStudentno(studentno);
         return ResultGenerator.genSuccessResult(list);

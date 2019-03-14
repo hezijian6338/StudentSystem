@@ -55,4 +55,16 @@ public interface StudentsService extends Service<Students> {
 
     public List<CourseInfo> findSelectedCoursesByStudentno(String studentno);
 
+    /**
+     * TODO: 学生选择导学老师
+     * @author hezijian6338
+     * @date 2019/3/14 9:25
+     * @param studentno
+     * @param teacherno
+     * @return void
+     * @throws
+     **/
+
+    public void saveSelectGuidTeacher(String studentno, String teacherno);
+
 }

@@ -2,9 +2,8 @@ package com.Mrs.Wang.project.service.impl;
 
 import com.Mrs.Wang.project.dao.CourseInfoMapper;
 import com.Mrs.Wang.project.dao.StudentsMapper;
-import com.Mrs.Wang.project.model.CourseInfo;
-import com.Mrs.Wang.project.model.CourseInfoStudent;
-import com.Mrs.Wang.project.model.Students;
+import com.Mrs.Wang.project.dao.TeacherInfoMapper;
+import com.Mrs.Wang.project.model.*;
 import com.Mrs.Wang.project.service.StudentsService;
 import com.Mrs.Wang.project.core.AbstractService;
 import com.Mrs.Wang.project.utils.UUIDUtils;
@@ -29,6 +28,9 @@ public class StudentsServiceImpl extends AbstractService<Students> implements St
 
     @Resource
     private CourseInfoMapper courseInfoMapper;
+
+    @Resource
+    private TeacherInfoMapper teacherInfoMapper;
 
     /**
      * TODO: 方法描述
@@ -101,6 +103,21 @@ public class StudentsServiceImpl extends AbstractService<Students> implements St
     @Override
     public List<CourseInfo> findSelectedCoursesByStudentno(String studentno) {
         return tStudentsMapper.findSelectedCoursesByStudentno(studentno);
+    }
+
+    @Override
+    public void saveSelectGuidTeacher(String studentno, String teacherno) {
+        Students student = tStudentsMapper.findByStudentno(studentno);
+        TeacherInfo teacher = teacherInfoMapper.findByTeacherno(teacherno);
+        LearningguidStudentslist ls = new LearningguidStudentslist();
+        ls.setId(UUIDUtils.getUUID());
+        ls.setTeacherno(teacher.getEmployNo());
+        ls.setTeachername(teacher.getEmployName());
+        ls.setStuname(student.getStuname());
+        ls.setStuId(student.getStuId());
+        ls.setClassname(student.getClassname());
+        ls.setCreateTime(new Date());
+        // 未完成setter,数据不完整
     }
 
 }
