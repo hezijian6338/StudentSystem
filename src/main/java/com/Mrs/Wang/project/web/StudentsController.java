@@ -68,8 +68,6 @@ public class StudentsController {
     /**
      * TODO: 根据学生基本信息返回可选的课程信息
      *
-     * @param page
-     * @param size
      * @param studentno
      * @return com.Mrs.Wang.project.core.Result
      * @throws
@@ -78,12 +76,10 @@ public class StudentsController {
      **/
 
     @GetMapping("/{studentno}/courseInfos")
-    public Result findCourseWithStudent(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size, @PathVariable String studentno) {
+    public Result findCourseWithStudent(@PathVariable String studentno) {
         Students student = studentsService.findByStudentno(studentno);
         List<CourseInfo> list = studentsService.findCourseWithStudent(student);
-        PageHelper.startPage(page, size);
-        PageInfo pageInfo = new PageInfo(list);
-        return ResultGenerator.genSuccessResult(pageInfo);
+        return ResultGenerator.genSuccessResult(list);
     }
 
     /**
@@ -96,7 +92,7 @@ public class StudentsController {
      * @throws
      **/
 
-    @PostMapping("/{studentno}/courseinfoStudent")
+    @PostMapping("/{studentno}/courses")
     public Result saveSelectedCourses(@PathVariable String studentno, @RequestBody List<String> courses) {
         studentsService.saveSelectedCourses(studentno, courses);
         return ResultGenerator.genSuccessResult();
@@ -111,7 +107,7 @@ public class StudentsController {
      * @throws
      **/
 
-    @GetMapping("/{studentno}/cousrses")
+    @GetMapping("/{studentno}/courses")
     public Result findSelectedCoursesByStudentno(@PathVariable String studentno) {
         List<CourseInfo> list = studentsService.findSelectedCoursesByStudentno(studentno);
         return ResultGenerator.genSuccessResult(list);
@@ -132,6 +128,15 @@ public class StudentsController {
         studentsService.saveSelectGuidTeacher(studentno, teacherno);
         return ResultGenerator.genSuccessResult();
     }
+
+    /**
+     * TODO: 学生查看已选的导学老师
+     * @author hezijian6338
+     * @date 2019/3/14 10:04
+     * @param studentno
+     * @return com.Mrs.Wang.project.core.Result
+     * @throws
+     **/
 
     @GetMapping("/{studentno}/guidTeacher")
     public Result findSelectedGuidTeacherByStudentno(@PathVariable String studentno) {
