@@ -38,7 +38,7 @@ public class StudentsServiceImpl extends AbstractService<Students> implements St
     private LearningguidStudentslistService learningguidStudentslistService;
 
     /**
-     * TODO: 方法描述
+     * TODO: 可选课程
      *
      * @param students
      * @return java.util.List<com.Mrs.Wang.project.model.CourseInfo>

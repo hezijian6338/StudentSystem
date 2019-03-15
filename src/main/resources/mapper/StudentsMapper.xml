@@ -43,8 +43,8 @@
             resultType="com.Mrs.Wang.project.model.CourseInfo">
       select *
       from t_courseinfo
-      where ACADEMICYEAR like '%'#{students.grade}'%'
-      and  CLASSINFO like '%'#{students.classname}'%';
+      where ACADEMICYEAR like '%'#{grade}'%'
+      and  CLASSINFO like '%'#{classname}'%';
     </select>
 
     <select id="findByStudentno" parameterType="String" resultMap="BaseResultMap">
