@@ -2,6 +2,7 @@ package com.Mrs.Wang.project.dao;
 
 import com.Mrs.Wang.project.core.Mapper;
 import com.Mrs.Wang.project.model.CourseInfo;
+import com.Mrs.Wang.project.model.CourseInfoStudent;
 import com.Mrs.Wang.project.model.Students;
 
 import java.util.List;
@@ -39,6 +40,6 @@ public interface StudentsMapper extends Mapper<Students> {
      * @throws
      **/
 
-    public List<CourseInfo> findSelectedCoursesByStudentno(String studentno);
+    public List<CourseInfoStudent> findSelectedCoursesByStudentno(String studentno);
 
 }

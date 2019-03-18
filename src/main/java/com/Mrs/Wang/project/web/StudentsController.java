@@ -3,6 +3,7 @@ package com.Mrs.Wang.project.web;
 import com.Mrs.Wang.project.core.Result;
 import com.Mrs.Wang.project.core.ResultGenerator;
 import com.Mrs.Wang.project.model.CourseInfo;
+import com.Mrs.Wang.project.model.CourseInfoStudent;
 import com.Mrs.Wang.project.model.Students;
 import com.Mrs.Wang.project.model.TeacherInfo;
 import com.Mrs.Wang.project.service.StudentsService;
@@ -109,7 +110,7 @@ public class StudentsController {
 
     @GetMapping("/{studentno}/courses")
     public Result findSelectedCoursesByStudentno(@PathVariable String studentno) {
-        List<CourseInfo> list = studentsService.findSelectedCoursesByStudentno(studentno);
+        List<CourseInfoStudent> list = studentsService.findSelectedCoursesByStudentno(studentno);
         return ResultGenerator.genSuccessResult(list);
     }
 

@@ -1,5 +1,6 @@
 package com.Mrs.Wang.project.service;
 import com.Mrs.Wang.project.model.CourseInfo;
+import com.Mrs.Wang.project.model.CourseInfoStudent;
 import com.Mrs.Wang.project.model.Students;
 import com.Mrs.Wang.project.core.Service;
 import com.Mrs.Wang.project.model.TeacherInfo;
@@ -50,11 +51,11 @@ public interface StudentsService extends Service<Students> {
      * @author hezijian6338
      * @date 2019/3/13 15:50
      * @param studentno
-     * @return java.util.List<com.Mrs.Wang.project.model.CourseInfo>
+     * @return java.util.List<com.Mrs.Wang.project.model.CourseInfoStudent>
      * @throws
      **/
 
-    public List<CourseInfo> findSelectedCoursesByStudentno(String studentno);
+    public List<CourseInfoStudent> findSelectedCoursesByStudentno(String studentno);
 
     /**
      * TODO: 学生选择导学老师

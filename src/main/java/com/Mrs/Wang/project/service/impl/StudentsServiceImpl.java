@@ -109,7 +109,7 @@ public class StudentsServiceImpl extends AbstractService<Students> implements St
     }
 
     @Override
-    public List<CourseInfo> findSelectedCoursesByStudentno(String studentno) {
+    public List<CourseInfoStudent> findSelectedCoursesByStudentno(String studentno) {
         return tStudentsMapper.findSelectedCoursesByStudentno(studentno);
     }
 

@@ -64,8 +64,14 @@ public class CourseInfoStudentController {
 //    @GetMapping("/{id}")
 //    public Result detail(@PathVariable Integer id) {
 //        CourseInfoStudent courseInfoStudent = courseInfoStudentService.findById(id);
-//        return ResultGenerator.genSuccessResult(courseInfoStudent);
-//    }
+    
+    /**
+     * TODO: 根据学生学号查找已选的课程
+     * @author hezijian6338
+     * @date 2019/3/18
+     * @param studentno
+     * @return com.Mrs.Wang.project.core.Result
+     */
 
     @GetMapping("/{studentno}")
     public Result findByStudentno(@PathVariable String studentno) {
