@@ -44,7 +44,8 @@
       select *
       from t_courseinfo
       where ACADEMICYEAR like "%"#{grade}"%"
-      and  CLASSINFO like "%"#{classname}"%";
+      and  CLASSINFO like "%"#{classname}"%"
+      order by COURSENAME desc;
     </select>
 
     <select id="findByStudentno" parameterType="String" resultMap="BaseResultMap">
