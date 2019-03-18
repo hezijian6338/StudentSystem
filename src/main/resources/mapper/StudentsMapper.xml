@@ -45,7 +45,7 @@
       from t_courseinfo
       where ACADEMICYEAR like "%"#{grade}"%"
       and  CLASSINFO like "%"#{classname}"%"
-      order by COURSENAME desc;
+      order by COURSENAME like '体育%' asc;
     </select>
 
     <select id="findByStudentno" parameterType="String" resultMap="BaseResultMap">
@@ -54,7 +54,8 @@
         where STUDENTNO = #{studentno};
     </select>
 
-    <select id="findSelectedCoursesByStudentno" parameterType="String" resultType="com.Mrs.Wang.project.model.CourseInfo">
+    <select id="findSelectedCoursesByStudentno" parameterType="String"
+            resultType="com.Mrs.Wang.project.model.CourseInfo">
         select *
         from t_courseinfo_students
         where STUDENTNO = #{studentno};

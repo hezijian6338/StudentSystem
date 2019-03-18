@@ -33,6 +33,7 @@
         and TERM = #{term}
         and CREDIT = #{credit}
         and CLASSINFO = #{classInfo}
+        order by COURSENAME like '体育%' asc;
     </select>
 
   <select id="conditionOfAca" resultType="String">
