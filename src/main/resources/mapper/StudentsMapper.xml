@@ -55,7 +55,7 @@
     </select>
 
     <select id="findSelectedCoursesByStudentno" parameterType="String"
-            resultType="com.Mrs.Wang.project.model.CourseInfo">
+            resultType="com.Mrs.Wang.project.model.CourseInfoStudent">
         select *
         from t_courseinfo_students
         where STUDENTNO = #{studentno};
