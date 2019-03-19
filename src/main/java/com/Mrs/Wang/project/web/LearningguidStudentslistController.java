@@ -36,6 +36,16 @@ public class LearningguidStudentslistController {
         return ResultGenerator.genSuccessResult();
     }
 
+    /**
+     * TODO: 学生选导学老师
+     * @author hezijian6338
+     * @date  10:50
+     * @param studentno
+     *  * @param employno
+     * @return com.Mrs.Wang.project.core.Result
+     * @throws
+     **/
+
     @PostMapping("/{studentno}/to/{employno}")
     public Result _add(@PathVariable String studentno, @PathVariable String employno) {
         Students students = studentsService.findBy("studentno", studentno);
