@@ -60,7 +60,7 @@ public class LearningguidStudentslistController {
         return ResultGenerator.genSuccessResult();
     }
 
-    @PatchMapping("/{id}/{employno}")
+    @PostMapping("/{id}/{employno}")
     public Result update(@PathVariable String id, @PathVariable String employno) {
         learningguidStudentslistService.studentReEmployno(id, employno);
         return ResultGenerator.genSuccessResult();
