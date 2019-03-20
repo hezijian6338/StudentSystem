@@ -26,6 +26,7 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
     @Resource
     private PermissionMapper permissionMapper;
 
+    @Override
     public List<String> searchRoleByuser (String username){
         User user = userMapper.findByUserName(username);
         List<Permission> pList = permissionMapper.findByAdminUserId(user.getId());
@@ -36,13 +37,17 @@ public class UserServiceImpl extends AbstractService<User> implements UserServic
         return list;
     }
 
+    @Override
     public User findByUserName(String username){
         return userMapper.findByUserName(username);
     }
+
+    @Override
     public List<UserDTO> findByRoleName(String rolename){
         return userMapper.findByRoleName(rolename);
     }
 
+    @Override
     public List<User> findUserRole() {
         List<User> user = this.findAll();
         List<User> user_rolename = new ArrayList<>();

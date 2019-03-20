@@ -10,6 +10,7 @@ import com.Mrs.Wang.project.service.LearningguidStudentslistService;
 import com.Mrs.Wang.project.core.AbstractService;
 import com.Mrs.Wang.project.service.StudentsService;
 import com.Mrs.Wang.project.service.TeacherInfoService;
+import com.Mrs.Wang.project.utils.UUIDUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,14 +24,18 @@ import javax.annotation.Resource;
 @Transactional
 public class LearningguidStudentslistServiceImpl extends AbstractService<LearningguidStudentslist> implements LearningguidStudentslistService {
     @Resource
-    private LearningguidStudentslistMapper tLearningguidStudentslistMapper;
-
-    @Resource
     private LearningguidStudentslistService learningguidStudentslistService;
 
+    @Resource
+    private StudentsService studentsService;
+
+    @Resource
+    private TeacherInfoService teacherInfoService;
+
+    @Override
     public void studentToEmployno(Students student, TeacherInfo teacherInfo){
         LearningguidStudentslist lgsl = new LearningguidStudentslist();
-        lgsl.setId("164dfas65fas fasfsw 516");
+        lgsl.setId(UUIDUtils.getUUID());
         //创建者和创建时间还有学期等字段还有疑问
         lgsl.setStudentno(student.getStudentno());
         lgsl.setClassname(student.getClassname());
@@ -41,6 +46,15 @@ public class LearningguidStudentslistServiceImpl extends AbstractService<Learnin
         lgsl.setTeacherno(teacherInfo.getEmployNo());
         lgsl.setCreator(student.getStudentno());
         learningguidStudentslistService.save(lgsl);
+    }
+
+    @Override
+    public void studentReEmployno(String id, String employno) {
+        LearningguidStudentslist lgsl = this.findBy("id", id);
+        TeacherInfo teacherInfo = teacherInfoService.findByTeacherno(employno);
+        lgsl.setTeachername(teacherInfo.getEmployName());
+        lgsl.setTeacherno(teacherInfo.getEmployNo());
+        learningguidStudentslistService.update(lgsl);
     }
 
 }

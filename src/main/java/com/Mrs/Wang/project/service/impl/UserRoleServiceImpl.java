@@ -24,6 +24,7 @@ public class UserRoleServiceImpl extends AbstractService<UserRole> implements Us
     @Resource
     private UserRoleMapper userRoleMapper;
 
+    @Override
     public void editUserRole(User user) {
         userRoleMapper.deleteByUserid(user.getId());
         for (Role role : user.getRoles()) {

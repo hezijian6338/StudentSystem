@@ -22,6 +22,7 @@ public class PermissionRoleServiceImpl extends AbstractService<PermissionRole> i
     @Resource
     private PermissionRoleMapper sysPermissionRoleMapper;
 
+    @Override
     public void editPermissionRole(Role role){
         sysPermissionRoleMapper.deleteByRoleid(role.getId());
         for (Permission per : role.getPermissions()) {

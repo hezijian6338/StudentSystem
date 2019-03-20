@@ -26,10 +26,12 @@ public class PermissionServiceImpl extends AbstractService<Permission> implement
     @Resource
     private RoleService roleService;
 
+    @Override
     public List<Permission> findByAdminUserId(Long userId){
         return sysPermissionMapper.findByAdminUserId(userId);
     }
 
+    @Override
     public List<RolesPermissionDTO> findRoleWithPermission() {
         List<RolesPermissionDTO> rolesPermission = new ArrayList<>();
         List<Role> roles = roleService.findAll();

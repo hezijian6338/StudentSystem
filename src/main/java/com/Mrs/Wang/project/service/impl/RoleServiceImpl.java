@@ -22,6 +22,7 @@ public class RoleServiceImpl extends AbstractService<Role> implements RoleServic
     @Resource
     private RoleMapper roleMapper;
 
+    @Override
     public List<RolesUserDTO> findRoleWithUser() {
         List<Role> roles = this.findAll();
         List<RolesUserDTO> rolesUserList = new ArrayList<>();
@@ -32,6 +33,7 @@ public class RoleServiceImpl extends AbstractService<Role> implements RoleServic
         return rolesUserList;
     }
 
+    @Override
     public List<Role> findRoleWithPermission() {
         List<Role> roles = this.findAll();
         List<Role> role_per = new ArrayList<>();

@@ -6,6 +6,7 @@ import com.Mrs.Wang.project.model.CourseInfoStudent;
 import com.Mrs.Wang.project.model.Students;
 import com.Mrs.Wang.project.service.CourseInfoStudentService;
 import com.Mrs.Wang.project.core.AbstractService;
+import com.Mrs.Wang.project.utils.UUIDUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,10 +23,11 @@ public class CourseInfoStudentServiceImpl extends AbstractService<CourseInfoStud
     @Resource
     private CourseInfoStudentMapper tCourseinfoStudentsMapper;
 
+    @Override
     public void studentToCourseCode(Students students, CourseInfo courseInfo) {
         CourseInfoStudent cis = new CourseInfoStudent();
         //创建人，时间，学分，实验室等等字段没填写，待定
-        cis.setId("333333333333333333333");
+        cis.setId(UUIDUtils.getUUID());
         cis.setAcademicyear(courseInfo.getAcademicyear());
         cis.setClassname(courseInfo.getCoursename());
         cis.setCoursecode(courseInfo.getCoursecode());
@@ -46,6 +48,7 @@ public class CourseInfoStudentServiceImpl extends AbstractService<CourseInfoStud
 
     }
 
+    @Override
     public List<CourseInfoStudent> findByStudentno(String studentno) {
         return tCourseinfoStudentsMapper.findByStudentno(studentno);
     }
