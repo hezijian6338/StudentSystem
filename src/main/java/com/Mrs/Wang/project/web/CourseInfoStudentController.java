@@ -77,6 +77,12 @@ public class CourseInfoStudentController {
         return ResultGenerator.genSuccessResult(courseInfoStudent);
     }
 
+    @GetMapping("/{studentno}/ids")
+    public Result findIdsByStudentno(@PathVariable String studentno) {
+        List<String> list = courseInfoStudentService.findIdsByStudentno(studentno);
+        return ResultGenerator.genSuccessResult(list);
+    }
+
     @GetMapping("/{fieldName}/{value}")
     public Result searchBy(@PathVariable String fieldName, @PathVariable String value){
         CourseInfoStudent courseInfoStudent = courseInfoStudentService.findBy(fieldName, value);

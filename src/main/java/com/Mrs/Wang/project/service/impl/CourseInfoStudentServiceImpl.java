@@ -49,27 +49,32 @@ public class CourseInfoStudentServiceImpl extends AbstractService<CourseInfoStud
 
     @Override
     public void studentToCourseCodes(String studentno, List<String> courseids) {
-         List<CourseInfoStudent> CISList = this.findByStudentno(studentno);
-        List<String> list = new ArrayList<>();
-         for (CourseInfoStudent t : CISList) {
-             list.add(t.getId());
-         }
-         for (String exist : list) {
-             if (!courseids.contains(exist)) {
-                 System.out.println("应该被删除的课程名称:" + this.findBy("id",exist).getCoursename());
-             }
-         }
-         for (String add : courseids) {
-             if (!list.contains(add)) {
-                 System.out.println("应该添加的课程名称:" + this.findBy("id",add).getCoursename());
-             }
-         }
+        List<String> list = this.findIdsByStudentno(studentno);
+        for (String exist : list) {
+            if (!courseids.contains(exist)) {
+                System.out.println("应该被删除的课程名称:" + this.findBy("id", exist).getCoursename());
+            }
+        }
+        for (String add : courseids) {
+            if (!list.contains(add)) {
+                System.out.println("应该添加的课程名称:" + this.findBy("id", add).getCoursename());
+            }
+        }
 
     }
 
     @Override
     public List<CourseInfoStudent> findByStudentno(String studentno) {
         return tCourseinfoStudentsMapper.findByStudentno(studentno);
+    }
+
+    @Override
+    public List<String> findIdsByStudentno(String studentno) {
+        List<String> list = new ArrayList<>();
+        for (CourseInfoStudent cis : this.findByStudentno(studentno)) {
+            list.add(cis.getId());
+        }
+        return list;
     }
 
 }
