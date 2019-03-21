@@ -71,8 +71,11 @@ public class CourseInfoStudentServiceImpl extends AbstractService<CourseInfoStud
     @Override
     public List<String> findIdsByStudentno(String studentno) {
         List<String> list = new ArrayList<>();
-        for (CourseInfoStudent cis : this.findByStudentno(studentno)) {
+        List<CourseInfoStudent> courseInfoStudent = this.findByStudentno(studentno);
+        for (CourseInfoStudent cis : courseInfoStudent) {
             list.add(cis.getId());
+            System.out.println("已选课程:");
+            System.out.print(cis.getId());
         }
         return list;
     }
