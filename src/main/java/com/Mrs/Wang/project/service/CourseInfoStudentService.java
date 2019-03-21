@@ -12,6 +12,6 @@ import java.util.List;
  * Created by Dragonsking309 on 2018/11/19.
  */
 public interface CourseInfoStudentService extends Service<CourseInfoStudent> {
-    public void studentToCourseCode(Students students, CourseInfo courseInfo);
+    public void studentToCourseCodes(String studentno, List<String> courseids);
     public List<CourseInfoStudent> findByStudentno(String studentno);
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -23,8 +24,7 @@ public class CourseInfoStudentServiceImpl extends AbstractService<CourseInfoStud
     @Resource
     private CourseInfoStudentMapper tCourseinfoStudentsMapper;
 
-    @Override
-    public void studentToCourseCode(Students students, CourseInfo courseInfo) {
+    public void addCourses(Students students, CourseInfo courseInfo) {
         CourseInfoStudent cis = new CourseInfoStudent();
         //创建人，时间，学分，实验室等等字段没填写，待定
         cis.setId(UUIDUtils.getUUID());
@@ -45,6 +45,25 @@ public class CourseInfoStudentServiceImpl extends AbstractService<CourseInfoStud
         cis.setMajor(students.getMajor());
         cis.setCredit(courseInfo.getCredit());
         cis.setMajorcode(students.getMajorCode());
+    }
+
+    @Override
+    public void studentToCourseCodes(String studentno, List<String> courseids) {
+         List<CourseInfoStudent> CISList = this.findByStudentno(studentno);
+        List<String> list = new ArrayList<>();
+         for (CourseInfoStudent t : CISList) {
+             list.add(t.getId());
+         }
+         for (String exist : list) {
+             if (!courseids.contains(exist)) {
+                 System.out.println("应该被删除的课程名称:" + this.findBy("id",exist).getCoursename());
+             }
+         }
+         for (String add : courseids) {
+             if (!list.contains(add)) {
+                 System.out.println("应该添加的课程名称:" + this.findBy("id",add).getCoursename());
+             }
+         }
 
     }
 

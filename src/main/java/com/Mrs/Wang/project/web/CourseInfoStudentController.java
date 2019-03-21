@@ -40,11 +40,9 @@ public class CourseInfoStudentController {
         return ResultGenerator.genSuccessResult();
     }
 
-    @PostMapping("/{studentno}/to/{coursecode}")
-    public Result _add(@PathVariable String studentno, @PathVariable String coursecode) {
-        Students students = studentsService.findBy("studentno", studentno);
-        CourseInfo courseInfo = courseInfoService.findBy("coursecode", coursecode);
-        courseInfoStudentService.studentToCourseCode(students,courseInfo);
+    @PostMapping("/{studentno}")
+    public Result _add(@PathVariable String studentno, @RequestBody List<String> courseids) {
+        courseInfoStudentService.studentToCourseCodes(studentno,courseids);
         return ResultGenerator.genSuccessResult();
     }
 
