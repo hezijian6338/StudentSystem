@@ -43,9 +43,9 @@ public class PermissionRoleServiceImpl extends AbstractService<PermissionRole> i
         Role role = new Role();
         role.setName(rolesPermissionDTO.getName());
         roleMapper.insert(role);
-        PermissionRole permissionRole = new PermissionRole();
-        permissionRole.setRoleId(roleMapper.findeRoleByRoleName(role.getName()).getId());
         for (Permission p : rolesPermissionDTO.getPermissions()) {
+            PermissionRole permissionRole = new PermissionRole();
+            permissionRole.setRoleId(roleMapper.findeRoleByRoleName(role.getName()).getId());
             permissionRole.setPermissionId(p.getId());
             this.save(permissionRole);
         }
