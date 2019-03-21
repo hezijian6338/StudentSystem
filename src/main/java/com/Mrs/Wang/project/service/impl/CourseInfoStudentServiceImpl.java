@@ -48,7 +48,7 @@ public class CourseInfoStudentServiceImpl extends AbstractService<CourseInfoStud
     }
 
     @Override
-    public void studentToCourseCodes(String studentno, List<String> courseids) {
+    public void studentToCourseIds(String studentno, List<String> courseids) {
         List<String> list = this.findIdsByStudentno(studentno);
         for (String exist : list) {
             if (!courseids.contains(exist)) {

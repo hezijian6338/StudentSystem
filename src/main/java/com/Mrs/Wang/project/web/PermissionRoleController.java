@@ -1,5 +1,6 @@
 package com.Mrs.Wang.project.web;
 
+import com.Mrs.Wang.project.DTO.RolesPermissionDTO;
 import com.Mrs.Wang.project.core.Result;
 import com.Mrs.Wang.project.core.ResultGenerator;
 import com.Mrs.Wang.project.model.PermissionRole;
@@ -35,6 +36,12 @@ public class PermissionRoleController {
     public Result editPermissionRole(@RequestBody Role role) {
         permissionRoleService.editPermissionRole(role);
         return ResultGenerator.genSuccessResult().setMessage(role.getName());
+    }
+
+    @PostMapping("/connection")
+    public Result addPermissionRole(@RequestBody RolesPermissionDTO rolesPermissionDTO) {
+        permissionRoleService.addPermissionRole(rolesPermissionDTO);
+        return ResultGenerator.genSuccessResult().setMessage(rolesPermissionDTO.getName());
     }
 
     @DeleteMapping("/{id}")

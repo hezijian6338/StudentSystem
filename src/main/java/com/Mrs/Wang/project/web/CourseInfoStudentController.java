@@ -42,7 +42,7 @@ public class CourseInfoStudentController {
 
     @PostMapping("/{studentno}")
     public Result _add(@PathVariable String studentno, @RequestBody List<String> courseids) {
-        courseInfoStudentService.studentToCourseCodes(studentno,courseids);
+        courseInfoStudentService.studentToCourseIds(studentno,courseids);
         return ResultGenerator.genSuccessResult();
     }
 

@@ -23,7 +23,7 @@ public interface CourseInfoStudentService extends Service<CourseInfoStudent> {
      * @throws
      **/
 
-    public void studentToCourseCodes(String studentno, List<String> courseids);
+    public void studentToCourseIds(String studentno, List<String> courseids);
 
     /**
      * TODO: 根据学生学号返回完整已选课程的数据类型的数组
