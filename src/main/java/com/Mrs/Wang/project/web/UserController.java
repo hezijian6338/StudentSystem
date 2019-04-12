@@ -8,6 +8,7 @@ import com.Mrs.Wang.project.dao.UserMapper;
 import com.Mrs.Wang.project.model.User;
 import com.Mrs.Wang.project.service.UserService;
 import com.Mrs.Wang.project.utils.JWTUtils;
+import com.Mrs.Wang.project.utils.UUIDUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +36,8 @@ public class UserController {
 
     @PostMapping("/user")
     public Result add(@RequestBody User user) {
+        // 默认初始密码 admin
+        user.setPassword(JWTUtils.setAuthentication("admin"));
         userService.save(user);
         return ResultGenerator.genSuccessResult();
     }
