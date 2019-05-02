@@ -7,6 +7,7 @@ import com.Mrs.Wang.project.model.CourseInfoStudent;
 import com.Mrs.Wang.project.model.Students;
 import com.Mrs.Wang.project.model.TeacherInfo;
 import com.Mrs.Wang.project.service.StudentsService;
+import com.Mrs.Wang.project.service.UserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,9 @@ import static org.springframework.util.ObjectUtils.isEmpty;
 public class StudentsController {
     @Resource
     private StudentsService studentsService;
+
+    @Resource
+    private UserService userService;
 
     @PostMapping
     public Result add(@RequestBody Students students) {
@@ -65,6 +69,13 @@ public class StudentsController {
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
     }
+
+    @GetMapping("/list/user")
+    public Result listOfUser() {
+        List<Students> students = studentsService.findStudentsByUser(userService.findAll());
+        return ResultGenerator.genSuccessResult(students);
+    }
+
 
     /**
      * TODO: 根据学生基本信息返回可选的课程信息

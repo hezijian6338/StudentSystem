@@ -8,10 +8,13 @@ import com.Mrs.Wang.project.service.LearningguidStudentslistService;
 import com.Mrs.Wang.project.service.StudentsService;
 import com.Mrs.Wang.project.core.AbstractService;
 import com.Mrs.Wang.project.utils.UUIDUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -134,5 +137,31 @@ public class StudentsServiceImpl extends AbstractService<Students> implements St
         TeacherInfo teacherInfo = teacherInfoMapper.findByTeacherno(ls.getTeacherno());
         return teacherInfo;
     }
+
+    @Override
+    public List<Students> findStudentsByUser(List<User> users) {
+        List<Students> students = new ArrayList<>();
+        for (User user : users) {
+            Students student = tStudentsMapper.findByStudentno(user.getUsername());
+            if (isObjectNotEmpty(student)) {
+                students.add(student);
+            }
+        }
+        return students;
+    }
+
+    /**
+     *      * 判断Object对象为空或空字符串
+     *      * @param obj
+     *      * @return
+     *     
+     */
+
+
+    public Boolean isObjectNotEmpty(Object obj) {
+        String str = ObjectUtils.toString(obj, "");
+        return StringUtils.isNotBlank(str);
+    }
+
 
 }

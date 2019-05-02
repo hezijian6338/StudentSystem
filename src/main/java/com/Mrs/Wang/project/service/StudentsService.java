@@ -1,9 +1,6 @@
 package com.Mrs.Wang.project.service;
-import com.Mrs.Wang.project.model.CourseInfo;
-import com.Mrs.Wang.project.model.CourseInfoStudent;
-import com.Mrs.Wang.project.model.Students;
+import com.Mrs.Wang.project.model.*;
 import com.Mrs.Wang.project.core.Service;
-import com.Mrs.Wang.project.model.TeacherInfo;
 
 import java.util.List;
 
@@ -79,5 +76,15 @@ public interface StudentsService extends Service<Students> {
      **/
 
     public TeacherInfo findSelectedGuidTeacherByStudentno(String studentno);
+
+    /***
+     * TODO: 根据已经添加的用户查找学生的信息
+     * @author hezijian6338
+     * @date 2019/5/2
+     * @param users
+     * @return java.util.List<com.Mrs.Wang.project.model.Students>
+     */
+
+    public List<Students> findStudentsByUser(List<User> users);
 
 }
