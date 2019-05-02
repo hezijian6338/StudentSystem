@@ -37,7 +37,7 @@ public class StudentsController {
         return ResultGenerator.genSuccessResult();
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public Result update(@RequestBody Students students) {
         studentsService.update(students);
         return ResultGenerator.genSuccessResult();
