@@ -105,7 +105,7 @@ public class StudentsController {
      **/
 
     @PostMapping("/{studentno}/courses")
-    public Result saveSelectedCourses(@PathVariable String studentno, @RequestBody List<String> courses) {
+    public Result saveSelectedCourses(@PathVariable String studentno, @RequestParam List<String> courses) {
         studentsService.saveSelectedCourses(studentno, courses);
         return ResultGenerator.genSuccessResult();
     }
