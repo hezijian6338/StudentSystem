@@ -1,5 +1,6 @@
 package com.Mrs.Wang.project.web;
 
+import com.Mrs.Wang.project.DTO.CoursefInfoDTO;
 import com.Mrs.Wang.project.core.Result;
 import com.Mrs.Wang.project.core.ResultGenerator;
 import com.Mrs.Wang.project.model.CourseInfo;
@@ -105,8 +106,8 @@ public class StudentsController {
      **/
 
     @PostMapping("/{studentno}/courses")
-    public Result saveSelectedCourses(@PathVariable String studentno, @RequestBody List<String> courses) {
-        studentsService.saveSelectedCourses(studentno, courses);
+    public Result saveSelectedCourses(@PathVariable String studentno, @RequestBody CoursefInfoDTO courses) {
+        studentsService.saveSelectedCourses(studentno, courses.getCourseids());
         return ResultGenerator.genSuccessResult();
     }
 
