@@ -1,9 +1,12 @@
 package com.Mrs.Wang.project.service.impl;
 
 import com.Mrs.Wang.project.dao.CourseInfoMapper;
+import com.Mrs.Wang.project.dao.CourseInfoStudentMapper;
 import com.Mrs.Wang.project.dao.StudentsMapper;
 import com.Mrs.Wang.project.dao.TeacherInfoMapper;
 import com.Mrs.Wang.project.model.*;
+import com.Mrs.Wang.project.service.CourseInfoService;
+import com.Mrs.Wang.project.service.CourseInfoStudentService;
 import com.Mrs.Wang.project.service.LearningguidStudentslistService;
 import com.Mrs.Wang.project.service.StudentsService;
 import com.Mrs.Wang.project.core.AbstractService;
@@ -35,10 +38,16 @@ public class StudentsServiceImpl extends AbstractService<Students> implements St
     private CourseInfoMapper courseInfoMapper;
 
     @Resource
+    private CourseInfoService courseInfoService;
+
+    @Resource
     private TeacherInfoMapper teacherInfoMapper;
 
     @Resource
     private LearningguidStudentslistService learningguidStudentslistService;
+
+    @Resource
+    private CourseInfoStudentService courseInfoStudentService;
 
     /**
      * TODO: 可选课程
@@ -86,28 +95,31 @@ public class StudentsServiceImpl extends AbstractService<Students> implements St
     public void saveSelectedCourses(String studentno, List<String> courses) {
         Students student = tStudentsMapper.findByStudentno(studentno);
         for (String courseCode : courses) {
-            CourseInfo courseInfo = courseInfoMapper.findByCourseCode(courseCode);
-            CourseInfoStudent courseInfoStudent = new CourseInfoStudent();
-            courseInfoStudent.setId(UUIDUtils.getUUID());
-            courseInfoStudent.setStuname(student.getStuname());
-            courseInfoStudent.setStudentno(student.getStudentno());
-            courseInfoStudent.setOrgName(student.getOrgName());
-            courseInfoStudent.setOrgId(student.getOrgId());
-            courseInfoStudent.setStuId(student.getStuId());
-            courseInfoStudent.setGrade(student.getGrade());
-            courseInfoStudent.setMajor(student.getMajor());
-            courseInfoStudent.setMajorcode(student.getMajorCode());
-            courseInfoStudent.setClassname(student.getClassname());
-            courseInfoStudent.setCreator(student.getStuId());
-            courseInfoStudent.setCoursename(courseInfo.getCoursename());
-            courseInfoStudent.setCoursecode(courseInfo.getCoursecode());
-            courseInfoStudent.setCoursetype(courseInfo.getCoursetype());
-            courseInfoStudent.setCredit(courseInfo.getCredit());
-            courseInfoStudent.setEmployNo(courseInfo.getEmployNo());
-            courseInfoStudent.setEmployName(courseInfo.getEmployName());
-            courseInfoStudent.setAcademicyear(courseInfo.getAcademicyear());
-            courseInfoStudent.setTerm(courseInfo.getTerm());
-            courseInfoStudent.setCreateTime(new Date());
+            CourseInfo courseInfo = courseInfoService.findBy("id", courseCode);
+            if (isObjectNotEmpty(courseInfo)) {
+                CourseInfoStudent courseInfoStudent = new CourseInfoStudent();
+                courseInfoStudent.setId(UUIDUtils.getUUID());
+                courseInfoStudent.setStuname(student.getStuname());
+                courseInfoStudent.setStudentno(student.getStudentno());
+                courseInfoStudent.setOrgName(student.getOrgName());
+                courseInfoStudent.setOrgId(student.getOrgId());
+                courseInfoStudent.setStuId(student.getStuId());
+                courseInfoStudent.setGrade(student.getGrade());
+                courseInfoStudent.setMajor(student.getMajor());
+                courseInfoStudent.setMajorcode(student.getMajorCode());
+                courseInfoStudent.setClassname(student.getClassname());
+                courseInfoStudent.setCreator(student.getStuId());
+                courseInfoStudent.setCoursename(courseInfo.getCoursename());
+                courseInfoStudent.setCoursecode(courseInfo.getCoursecode());
+                courseInfoStudent.setCoursetype(courseInfo.getCoursetype());
+                courseInfoStudent.setCredit(courseInfo.getCredit());
+                courseInfoStudent.setEmployNo(courseInfo.getEmployNo());
+                courseInfoStudent.setEmployName(courseInfo.getEmployName());
+                courseInfoStudent.setAcademicyear(courseInfo.getAcademicyear());
+                courseInfoStudent.setTerm(courseInfo.getTerm());
+                courseInfoStudent.setCreateTime(new Date());
+                courseInfoStudentService.save(courseInfoStudent);
+            }
         }
     }
 
