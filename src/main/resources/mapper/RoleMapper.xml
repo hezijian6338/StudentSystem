@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.Mrs.Wang.project.dao.RoleMapper">
-    <resultMap id="BaseResultMap" type="com.Mrs.Wang.project.model.Role">
+<mapper namespace="com.student.info.dao.RoleMapper">
+    <resultMap id="BaseResultMap" type="com.student.info.model.Role">
         <!--
           WARNING - @mbg.generated
         -->
@@ -9,19 +9,19 @@
         <result column="name" jdbcType="VARCHAR" property="name"/>
     </resultMap>
 
-    <resultMap id="Role_User" type="com.Mrs.Wang.project.DTO.RolesUserDTO">
+    <resultMap id="Role_User" type="com.student.info.DTO.RolesUserDTO">
         <result property="id" column="roleid"/>
         <result property="name" column="rolename"/>
-        <collection property="username" ofType="com.Mrs.Wang.project.DTO.UserDTO">
+        <collection property="username" ofType="com.student.info.DTO.UserDTO">
             <id column="userid" property="id"/>
             <result column="username" property="name"/>
         </collection>
     </resultMap>
 
-    <resultMap id="Role_Permission" type="com.Mrs.Wang.project.model.Role">
+    <resultMap id="Role_Permission" type="com.student.info.model.Role">
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
-        <collection property="permissions" ofType="com.Mrs.Wang.project.model.Permission">
+        <collection property="permissions" ofType="com.student.info.model.Permission">
             <id column="permissionid" property="id"/>
             <result column="pname" property="name"/>
             <result column="description" property="description"/>

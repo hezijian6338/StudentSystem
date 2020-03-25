@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.Mrs.Wang.project.dao.StudentsMapper">
-    <resultMap id="BaseResultMap" type="com.Mrs.Wang.project.model.Students">
+<mapper namespace="com.student.info.dao.StudentsMapper">
+    <resultMap id="BaseResultMap" type="com.student.info.model.Students">
         <!--
           WARNING - @mbg.generated
         -->
@@ -39,8 +39,8 @@
         <result column="GRADE" jdbcType="VARCHAR" property="grade"/>
     </resultMap>
 
-    <select id="findCourseWithStudent" parameterType="com.Mrs.Wang.project.model.Students"
-            resultType="com.Mrs.Wang.project.model.CourseInfo">
+    <select id="findCourseWithStudent" parameterType="com.student.info.model.Students"
+            resultType="com.student.info.model.CourseInfo">
       select *
       from t_courseinfo
       where ACADEMICYEAR like "%"#{grade}"%"
@@ -55,7 +55,7 @@
     </select>
 
     <select id="findSelectedCoursesByStudentno" parameterType="String"
-            resultType="com.Mrs.Wang.project.model.CourseInfoStudent">
+            resultType="com.student.info.model.CourseInfoStudent">
         select *
         from t_courseinfo_students
         where STUDENTNO = #{studentno};
