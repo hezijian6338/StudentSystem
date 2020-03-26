@@ -1,11 +1,9 @@
 package com.student.info.utils;
 
+
+import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.security.core.context.SecurityContextHolder;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 
 /**
  * @program: spring-boot-api-project-seed
@@ -38,9 +36,10 @@ public class JWTUtils {
     }
 
     public static String setAuthentication(String password) {
-        String token = Jwts.builder()
-                .setSubject(password)
-                .signWith(SignatureAlgorithm.HS512, "MyJwtSecret")
+        JwtBuilder builder = Jwts.builder().setSubject(password).signWith(SignatureAlgorithm.HS512, "MyJwtSecret");
+//        builder.setSubject(password);
+//        builder.signWith("MyJwtSecret");
+        String token = builder
                 .compact();
         return token;
     }
