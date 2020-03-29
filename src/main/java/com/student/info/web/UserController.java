@@ -33,8 +33,10 @@ public class UserController {
         return ResultGenerator.genSuccessResult();
     }
 
-    @PostMapping("/user")
-    public Result add(@RequestBody User user) {
+    @PostMapping("/user/{number}")
+    public Result add(@PathVariable String number) {
+        User user = new User();
+        user.setUsername(number);
         // 默认初始密码 admin
         user.setPassword(JWTUtils.setAuthentication("admin"));
         userService.save(user);
