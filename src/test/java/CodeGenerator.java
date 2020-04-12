@@ -18,9 +18,9 @@ import static com.student.info.core.ProjectConstant.*;
  */
 public class CodeGenerator {
     //JDBC配置，请修改为你项目的实际配置
-    private static final String JDBC_URL = "jdbc:mysql://134.175.69.74:3306/Mrs.Wang_xuexin";
-    private static final String JDBC_USERNAME = "root";
-    private static final String JDBC_PASSWORD = "123456";
+    private static final String JDBC_URL = "jdbc:mysql://134.175.69.74:3306/student_management?characterEncoding=utf8&useSSL=false";
+    private static final String JDBC_USERNAME = "student_management";
+    private static final String JDBC_PASSWORD = "hezijian6338";
     private static final String JDBC_DIVER_CLASS_NAME = "com.mysql.jdbc.Driver";
 
     private static final String PROJECT_PATH = System.getProperty("user.dir");//项目在硬盘上的基础路径
@@ -37,21 +37,22 @@ public class CodeGenerator {
     private static final String DATE = new SimpleDateFormat("yyyy/MM/dd").format(new Date());//@date
 
     public static void main(String[] args) {
+        genCodeByCustomModelName("t_confirmguid_studentlist","confirmList");
         //genCode("t_courseinfo");
-        genCodeByCustomModelName("t_courseinfo","CourseInfo");
+//        genCodeByCustomModelName("t_courseinfo","CourseInfo");
         //genCode("t_courseinfo_students");
-        genCodeByCustomModelName("t_courseinfo_students","CourseInfoStudent");
+//        genCodeByCustomModelName("t_courseinfo_students","CourseInfoStudent");
         // genCode("t_students");
-        genCodeByCustomModelName("t_students","Students");
+//        genCodeByCustomModelName("t_students","Students");
         //genCode("t_teacherinfo");
-        genCodeByCustomModelName("t_teacherinfo","TeacherInfo");
+//        genCodeByCustomModelName("t_teacherinfo","TeacherInfo");
         //genCode("t_learningguid_studentslist");
-        genCodeByCustomModelName("t_learningguid_studentslist","LearningguidStudentslist");
-        genCodeByCustomModelName("Sys_User","User");
-        genCodeByCustomModelName("Sys_role_user","UserRole");
-        genCodeByCustomModelName("Sys_Role","Role");
-        genCodeByCustomModelName("Sys_permission","Permission");
-        genCodeByCustomModelName("Sys_permission_role","PermissionRole");
+//        genCodeByCustomModelName("t_learningguid_studentslist","LearningguidStudentslist");
+//        genCodeByCustomModelName("Sys_User","User");
+//        genCodeByCustomModelName("Sys_role_user","UserRole");
+//        genCodeByCustomModelName("Sys_Role","Role");
+//        genCodeByCustomModelName("Sys_permission","Permission");
+//        genCodeByCustomModelName("Sys_permission_role","PermissionRole");
         //genCodeByCustomModelName("输入表名","输入自定义Model名称");
     }
 
