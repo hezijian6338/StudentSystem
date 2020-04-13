@@ -57,4 +57,13 @@ public class TeacherInfoController {
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
     }
+
+    @GetMapping("teaInfo/{employNo}")
+    public Result teacherInfo(@PathVariable String employNo) {
+        String fieldfieldName = "employNo"; // EMPLOY_NO
+        TeacherInfo teacherInfo = teacherInfoService.findBy(fieldfieldName, employNo);
+        System.out.println(teacherInfo.getEmployName() + "********");
+        return ResultGenerator.genSuccessResult(teacherInfo);
+//        return ResultGenerator.genSuccessResult();
+    }
 }
