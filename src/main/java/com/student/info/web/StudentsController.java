@@ -157,5 +157,20 @@ public class StudentsController {
         return ResultGenerator.genSuccessResult(teacherInfo);
     }
 
+    /**
+     * TODO: 保存当前学生的资料
+     * @author hezijian6338
+     * @date 2019/3/13 15:34
+     * @param Students
+     * @param courses
+     * @return Result
+     * @throws
+     **/
+
+    @PostMapping("/updateStu")
+    public Result saveSelectedCourses(@RequestBody Students student) {
+        studentsService.update(student);
+        return ResultGenerator.genSuccessResult();
+    }
 
 }

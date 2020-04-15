@@ -69,8 +69,8 @@ public class TeacherInfoController {
 
     @PostMapping("/updateData/")
     public Result updateData(@RequestBody TeacherInfo teacherInfo) {
-        System.out.println(teacherInfo.getEmployName());
-//        teacherInfoService.update(teacherInfo);
+        System.out.println(teacherInfo.getEmployName() + "*******"  + "???????");
+        teacherInfoService.update(teacherInfo);
         return ResultGenerator.genSuccessResult();
     }
 
