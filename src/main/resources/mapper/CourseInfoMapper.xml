@@ -47,4 +47,12 @@
         where COURSECODE = #{courseCode}
     </select>
 
+    <select id="findSelectedCoursesByTeacherNo" parameterType="String"
+            resultType="com.student.info.model.CourseInfo">
+        select *
+        from t_courseinfo
+        where EMPLOY_NO = #{teacherNo};
+    </select>
+
+
 </mapper>

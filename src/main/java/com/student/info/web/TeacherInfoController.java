@@ -2,7 +2,9 @@ package com.student.info.web;
 
 import com.student.info.core.Result;
 import com.student.info.core.ResultGenerator;
+import com.student.info.model.CourseInfo;
 import com.student.info.model.TeacherInfo;
+import com.student.info.service.CourseInfoService;
 import com.student.info.service.TeacherInfoService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -19,6 +21,9 @@ import java.util.List;
 public class TeacherInfoController {
     @Resource
     private TeacherInfoService teacherInfoService;
+
+    @Resource
+    private CourseInfoService courseInfoService;
 
     @PostMapping
     public Result add(@RequestBody TeacherInfo teacherInfo) {
@@ -72,6 +77,14 @@ public class TeacherInfoController {
         System.out.println(teacherInfo.getEmployName() + "*******"  + "???????");
         teacherInfoService.update(teacherInfo);
         return ResultGenerator.genSuccessResult();
+    }
+
+    @GetMapping("course/{teachersNo}")
+    public Result findSelectedCoursesByTeaNo(@PathVariable String teachersNo) {
+        System.out.println("Here??????????????" + teachersNo);
+        System.out.println("????????????????");
+        List<CourseInfo> list = courseInfoService.findSelectedCoursesByTeacherNo(teachersNo);
+        return ResultGenerator.genSuccessResult(list);
     }
 
 }

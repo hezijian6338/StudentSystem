@@ -39,4 +39,14 @@ public interface CourseInfoMapper extends Mapper<CourseInfo> {
      **/
 
     public CourseInfo findByCourseCode(String courseCode);
+
+    /**
+     * TODO: 根据老师代码获取课程信息
+     * @author hezijian6338
+     * @date 2019/3/13 15:00
+     * @param teacherNo
+     * @return CourseInfo
+     * @throws
+     **/
+    List<CourseInfo> findSelectedCoursesByTeacherNo(String teacherNo);
 }
