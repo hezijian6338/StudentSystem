@@ -1,5 +1,6 @@
 package com.student.info.service.impl;
 
+import com.student.info.dao.LearningguidStudentslistMapper;
 import com.student.info.model.LearningguidStudentslist;
 import com.student.info.model.Students;
 import com.student.info.model.TeacherInfo;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 /**
@@ -28,6 +30,9 @@ public class LearningguidStudentslistServiceImpl extends AbstractService<Learnin
 
     @Resource
     private TeacherInfoService teacherInfoService;
+
+    @Resource
+    private LearningguidStudentslistMapper learningguidStudentslistMapper;
 
     @Override
     public void studentToEmployno(Students student, TeacherInfo teacherInfo){
@@ -52,6 +57,12 @@ public class LearningguidStudentslistServiceImpl extends AbstractService<Learnin
         lgsl.setTeachername(teacherInfo.getEmployName());
         lgsl.setTeacherno(teacherInfo.getEmployNo());
         learningguidStudentslistService.update(lgsl);
+    }
+
+    @Override
+    public List<LearningguidStudentslist> findByTeacherNo(Integer teacherNo) {
+        List<LearningguidStudentslist> learningguidStudentslist = learningguidStudentslistMapper.findByTeacherNo(teacherNo.toString());
+        return learningguidStudentslist;
     }
 
 }

@@ -17,4 +17,11 @@
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <result column="CREATOR" jdbcType="VARCHAR" property="creator" />
   </resultMap>
+
+  <select id="findByTeacherNo" parameterType="String"
+          resultType="com.student.info.model.LearningguidStudentslist">
+        select *
+        from t_learningguid_studentslist
+        where TEACHERNO = #{teacherno};
+    </select>
 </mapper>

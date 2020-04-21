@@ -72,6 +72,13 @@ public class LearningguidStudentslistController {
         return ResultGenerator.genSuccessResult(learningguidStudentslist);
     }
 
+    @GetMapping("selected/{teacherNo}")
+    public Result selectedStudent(@PathVariable Integer teacherNo) {
+        List<LearningguidStudentslist> learningguidStudentslist = learningguidStudentslistService.findByTeacherNo(teacherNo);
+        System.out.println(learningguidStudentslist.size() + "？？？？？Fuck!!!");
+        return ResultGenerator.genSuccessResult(learningguidStudentslist);
+    }
+
     @GetMapping("/{fieldName}/{value}")
     public Result findBy(@PathVariable String fieldName, @PathVariable String value) {
         LearningguidStudentslist learningguidStudentslist = learningguidStudentslistService.findBy(fieldName, value);

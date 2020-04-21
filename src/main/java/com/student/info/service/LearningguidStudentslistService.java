@@ -4,6 +4,8 @@ import com.student.info.core.Service;
 import com.student.info.model.Students;
 import com.student.info.model.TeacherInfo;
 
+import java.util.List;
+
 
 /**
  * Created by Dragonsking309 on 2018/11/19.
@@ -33,4 +35,15 @@ public interface LearningguidStudentslistService extends Service<LearningguidStu
      **/
 
     public void studentReEmployno(String id, String employno);
+
+    /**
+     * TODO: 返回这个老师的学生
+     * @author hezijian6338
+     * @date 2019/3/20 15:25
+     * @param teacherNo
+     * @param employno
+     * @return void
+     * @throws
+     **/
+    public List<LearningguidStudentslist> findByTeacherNo(Integer teacherNo);
 }
