@@ -8,6 +8,7 @@ import com.student.info.model.CourseInfo;
 import com.student.info.service.CourseInfoService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.student.info.utils.UUIDUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -27,6 +28,8 @@ public class CourseInfoController {
 
     @PostMapping
     public Result add(@RequestBody CourseInfo courseInfo) {
+        System.out.println("添加了妈？？？？？？");
+        courseInfo.setId(UUIDUtils.getUUID());
         courseInfoService.save(courseInfo);
         return ResultGenerator.genSuccessResult();
     }
@@ -86,9 +89,10 @@ public class CourseInfoController {
 
     @GetMapping
     public Result list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
+        System.out.println("Here???!!!!");
         PageHelper.startPage(page, size);
         List<CourseInfo> list = courseInfoService.findAll();
-        PageInfo pageInfo = new PageInfo(list);
-        return ResultGenerator.genSuccessResult(pageInfo);
+//        PageInfo pageInfo = new PageInfo(list);
+        return ResultGenerator.genSuccessResult(list);
     }
 }
