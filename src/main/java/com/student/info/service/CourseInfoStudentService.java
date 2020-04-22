@@ -44,4 +44,14 @@ public interface CourseInfoStudentService extends Service<CourseInfoStudent> {
      **/
 
     public List<String> findIdsByStudentno(String studentno);
+
+    /**
+     * TODO: 根据学生学号返回已选课程的id 的数组
+     * @author hezijian6338
+     * @date 2019/3/21 11:16
+     * @param courseNo, teacherNo
+     * @return java.util.List<java.lang.String>
+     * @throws
+     **/
+    public List<CourseInfoStudent> findByTeacherno(String courseNo, String teacherNo);
 }

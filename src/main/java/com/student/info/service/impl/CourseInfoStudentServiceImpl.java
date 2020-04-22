@@ -80,4 +80,10 @@ public class CourseInfoStudentServiceImpl extends AbstractService<CourseInfoStud
         return list;
     }
 
+    @Override
+    public List<CourseInfoStudent> findByTeacherno(String courseNo, String teacherNo) {
+        List<CourseInfoStudent> courseInfoStudents = tCourseinfoStudentsMapper.findByTeacherno(courseNo, teacherNo);
+        return courseInfoStudents;
+    }
+
 }

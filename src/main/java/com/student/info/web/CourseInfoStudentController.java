@@ -53,6 +53,8 @@ public class CourseInfoStudentController {
 
     @PutMapping
     public Result update(@RequestBody CourseInfoStudent courseInfoStudent) {
+        System.out.println(courseInfoStudent.getId());
+        System.out.println("r u here man?????????****");
         courseInfoStudentService.update(courseInfoStudent);
         return ResultGenerator.genSuccessResult();
     }
@@ -94,5 +96,20 @@ public class CourseInfoStudentController {
         List<CourseInfoStudent> list = courseInfoStudentService.findAll();
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
+    }
+
+    /**
+     * TODO: 根据学生学号查找已选的课程
+     * @author hezijian6338
+     * @date 2019/3/18
+     * @param teacherNo, courseNo
+     * @return Result
+     */
+
+    @GetMapping("/detail/{courseNo}/{teacherNo}")
+    public Result findByTeacherno(@PathVariable String courseNo, @PathVariable String teacherNo) {
+        List<CourseInfoStudent> courseInfoStudent = courseInfoStudentService.findByTeacherno(courseNo,teacherNo);
+        System.out.println(courseInfoStudent.size() + "Hello World");
+        return ResultGenerator.genSuccessResult(courseInfoStudent);
     }
 }

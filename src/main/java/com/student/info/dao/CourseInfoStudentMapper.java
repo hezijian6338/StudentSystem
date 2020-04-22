@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface CourseInfoStudentMapper extends Mapper<CourseInfoStudent> {
     public List<CourseInfoStudent> findByStudentno(@Param("studentno") String studentno);
+
+    public List<CourseInfoStudent> findByTeacherno(@Param("courseNo") String courseNo, @Param("teacherNo") String teacherNo);
 }

@@ -48,4 +48,9 @@
     where studentno = #{studentno}
   </select>
 
+    <select id="findByTeacherno" parameterType="String" resultMap="BaseResultMap">
+    select *
+    from t_courseinfo_students
+    where SELECTEDCOURSENO = #{courseNo} and EMPLOY_NO = #{teacherNo}
+  </select>
 </mapper>
