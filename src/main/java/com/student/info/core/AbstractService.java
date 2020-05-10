@@ -36,6 +36,8 @@ public abstract class AbstractService<T> implements Service<T> {
         mapper.deleteByPrimaryKey(id);
     }
 
+    public void deleteById(Long id) { mapper.deleteByPrimaryKey(id);}
+
     public void deleteByIds(String ids) {
         mapper.deleteByIds(ids);
     }
@@ -45,6 +47,10 @@ public abstract class AbstractService<T> implements Service<T> {
     }
 
     public T findById(Integer id) {
+        return mapper.selectByPrimaryKey(id);
+    }
+
+    public T findById(Long id) {
         return mapper.selectByPrimaryKey(id);
     }
 

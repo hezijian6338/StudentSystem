@@ -6,6 +6,7 @@ import com.student.info.core.Result;
 import com.student.info.core.ResultGenerator;
 import com.student.info.dao.UserMapper;
 import com.student.info.model.User;
+import com.student.info.service.UserRoleService;
 import com.student.info.service.UserService;
 import com.student.info.utils.JWTUtils;
 import com.github.pagehelper.PageHelper;
@@ -13,6 +14,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +25,9 @@ import java.util.List;
 public class UserController {
     @Resource
     private UserService userService;
+
+    @Resource
+    private UserRoleService userRoleService;
 
     @Resource
     private UserMapper userMapper;
@@ -44,7 +49,13 @@ public class UserController {
     }
 
     @DeleteMapping("/user/{id}")
-    public Result delete(@PathVariable Integer id) {
+    public Result delete(@PathVariable Long id) {
+        User user = userService.findById(id);
+
+        // TODO: 删除角色依赖后再删除用户 (避免数据游离)
+        user.setRoles(new ArrayList<>());
+        userRoleService.editUserRole(user);
+
         userService.deleteById(id);
         return ResultGenerator.genSuccessResult();
     }
