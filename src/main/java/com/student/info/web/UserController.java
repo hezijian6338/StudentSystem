@@ -72,6 +72,12 @@ public class UserController {
         return ResultGenerator.genSuccessResult(user);
     }
 
+    @GetMapping("/user/name/{userName}")
+    public Result findUserByName(@PathVariable String userName) {
+        User user = userService.findByUserName(userName);
+        return ResultGenerator.genSuccessResult(user);
+    }
+
     @GetMapping("/user/rolename/{rolename}")
     public Result searchByRole(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size, @PathVariable String rolename) {
         PageHelper.startPage(page, size);
@@ -96,6 +102,26 @@ public class UserController {
         List<User> list = userService.findAll();
         PageInfo pageInfo = new PageInfo(list);
         return ResultGenerator.genSuccessResult(pageInfo);
+    }
+
+    @PostMapping("/user/{id}/password/{oldPassword}/modification/{newPassword}")
+    public Result userPasswordModify(@PathVariable Long id, @PathVariable String oldPassword, @PathVariable String newPassword) {
+        User user = userService.findById(id);
+
+        if (user == null)
+            return ResultGenerator.genFailResult("用户为空, 请联系管理员~");
+
+        if (user.getPassword() == null)
+            return ResultGenerator.genFailResult("密码为空, 请联系管理员~");
+
+        if (!JWTUtils.getAuthentication(user.getPassword()).equals(oldPassword))
+            return ResultGenerator.genFailResult("旧密码错误~");
+
+        // TODO: 加密密码并且存储
+        user.setPassword(JWTUtils.setAuthentication(newPassword));
+        userService.update(user);
+
+        return ResultGenerator.genSuccessResult();
     }
 
     @GetMapping("/user/non/password")
