@@ -60,8 +60,8 @@ public class LearningguidStudentslistServiceImpl extends AbstractService<Learnin
     }
 
     @Override
-    public List<LearningguidStudentslist> findByTeacherNo(Integer teacherNo) {
-        List<LearningguidStudentslist> learningguidStudentslist = learningguidStudentslistMapper.findByTeacherNo(teacherNo.toString());
+    public List<LearningguidStudentslist> findByTeacherNo(String teacherNo) {
+        List<LearningguidStudentslist> learningguidStudentslist = learningguidStudentslistMapper.findByTeacherNo(teacherNo);
         return learningguidStudentslist;
     }
 

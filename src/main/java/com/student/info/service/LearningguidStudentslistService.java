@@ -45,5 +45,5 @@ public interface LearningguidStudentslistService extends Service<LearningguidStu
      * @return void
      * @throws
      **/
-    public List<LearningguidStudentslist> findByTeacherNo(Integer teacherNo);
+    public List<LearningguidStudentslist> findByTeacherNo(String teacherNo);
 }

@@ -73,7 +73,8 @@ public class LearningguidStudentslistController {
     }
 
     @GetMapping("selected/{teacherNo}")
-    public Result selectedStudent(@PathVariable Integer teacherNo) {
+    public Result selectedStudent(@PathVariable String teacherNo) {
+        System.out.println(teacherNo);
         List<LearningguidStudentslist> learningguidStudentslist = learningguidStudentslistService.findByTeacherNo(teacherNo);
         System.out.println(learningguidStudentslist.size() + "？？？？？Fuck!!!");
         return ResultGenerator.genSuccessResult(learningguidStudentslist);
